@@ -13,21 +13,26 @@ output: html_document
 drug_od <- read_csv("drug_data.csv")
 install.packages("tidyverse")
 library(tidyverse)
+install.packages("ggplot")
 ```
 
 
 ##Examining the Data
-####In order to evaluate how to best analyze the data we must familiarize ourself with the variables and how these variables are oriented. This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose for each measure. 
+####In order to evaluate how to best analyze the data we must familiarize ourselves with the variables and how these variables are oriented. This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 residents  for group listed. 
 ```{r}
 
 table(drug_od$PANEL)
 table(drug_od$PANEL_NUM)
-opioids <- drug_od %>% 
-  filter(PANEL_NUM ==1) %>%
-  mutate(Race =  )
+##This gives us all of the drug overdoses caused by opioids from 1999 - 2018 and groups them by gender/racial identity. 
 
-?mutat
-##use mutate to separate race and gender by 
+opioids1 <- drug_od %>% 
+  filter(PANEL_NUM ==1) %>%
+  filter(STUB_NAME_NUM == 4) %>%
+  filter(YEAR == 2003) %>%
+  mutate(Race_Gender = STUB_NAME_NUM) 
+
+
+##use mutate to separate race and gender? 
 ##Stub_name corresponds to sex or racial grouping, stub_label specifies the group (i.e. female/male, white/black/etc)
 ###stub_name_num, 0 = total, 1 = age range, 2 = sex, 3 = sex/age range, 4 = sex+race, 5 = sex/ethnicity
 ###stub_label_num has tenths decimals that correspond to specific pairings (i.e. 4.5 = female and white)
@@ -38,7 +43,13 @@ opioids <- drug_od %>%
 ```
 
 ```{r}
+
+```
+
+
+```{r}
 install.packages("tidyverse")
+install.packages("renv")
 library(tidyverse)
 suicide_data <- read_csv("suicide_data.csv")
 suicide1 <- read_csv("data/pc.csv")

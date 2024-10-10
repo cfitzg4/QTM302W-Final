@@ -143,10 +143,30 @@ ggplot(drug_racial, aes(x = factor(PANEL_NUM), y = ESTIMATE, fill = Race_Gender)
 
 ```
 
-
-
+## Viewing Central tendency of outcome variable 
 ```{r, echo = F}
+## To understand the information from the data, we have to understand the outcome variable which showcase the estimate for drug overdose death
+mean_estimate <- mean(drug_racial$ESTIMATE, na.rm = TRUE) #4.2
+median_estimate <- median(drug_racial$ESTIMATE, na.rm = TRUE) #2
+std_estimate <- sd(drug_racial$ESTIMATE, na.rm = TRUE) #5.19
+## These values don't really depict much information as this variable is an estimate rate and not a full value.
 
+
+
+## To gain a better understanding of the outcome, we chose to focus on the mean of the different races and gender to see the mean of drug overdose death rate amongst the different groups as well as the standard deviation 
+meanrace <- drug_RG %>%
+  group_by(Race, Gender) %>%
+  summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
+
+meanrace
+
+stdrace<- drug_RG %>%
+  group_by(Race, Gender) %>%
+  summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
+
+stdrace
+
+## These descriptive statistics, depicts a better gauge of our outcome variable, by looking at our mean values, we see that on overage the group with the highest rate of drug overdose are white males. Based on our standard variables, we also a lot of variability from the white male category depicting the spread of our data. This indicates that the whit emale category can vary depending on many different variables, year, drug type etc.
 ```
 
 

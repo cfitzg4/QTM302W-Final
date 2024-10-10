@@ -103,30 +103,62 @@ ggplot(drug_racial, aes(x = factor(YEAR), y = ESTIMATE, fill = Race_Gender)) +
   theme_minimal()
 ```
 
+## Visualizing the distribution:
+### While thee data, tells us a lot regarding the different observations witnessed. It is important to look at the distribution because it provide us with essential information about the central or average values in a dataset, helping us identify the "typical" value around which data points tend to cluster
+
+```{r, echo = F}
+
+## To visualize our data, we first looked at the distribution of RACE_GENDER by the estimate, to see which race and gender had the highest rate of drug overdose.
+ggplot(drug_racial, aes(x = Race_Gender, y = ESTIMATE, fill = Race_Gender)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Overdose Estimates by Race and Gender", 
+       x = "Race and Gender", 
+       y = "Estimate") +
+  theme_minimal()
+
+## This shows that based on the median line of the boxplot, it indicated that the high rates of drug overdose amongst the different drug types seemed to be highly experienced by white males and native american male. However it seemed as though more overdose death rates come from the white male population.
+
+
+
+## The next variable we looked at is the YEAR to showcase the distribution of how the number of overdose has changed over time. Instead of focusing on both the race and gender, we found it would be beneficial to just focus gender as the graph might be oversaturated.
+ggplot(drug_RG, aes(x = factor(YEAR), y = ESTIMATE, fill = Gender)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Overdose Estimates by Year", 
+       x = "Year", 
+       y = "Estimate") +
+  theme_minimal()
+## The graph shows that a common trend for both female and male (excluding the unknown) is that as the years increased the number of drug overdose increased. While it was a subtle increase for females, the males saw a huge rise in drug overdose deaths. 
+
+
+
+## Finally, we wanted to see the distribution of the different drug type overdose amongst the different race and genders to see which type is more prevalent.
+ggplot(drug_racial, aes(x = factor(PANEL_NUM), y = ESTIMATE, fill = Race_Gender)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Overdose Estimates by Drug Type and Race/Gender", 
+       x = "Drug Type", 
+       y = "Estimate") +
+  theme_minimal()
+## As we already established drug type 0 = all drug overdose deaths regardless of drug type, 1 =  drug overdose deaths from any opioid, 2 = any drug overdose death from synthetic opioids, 3 = drug overdose deaths from methadone, 4 = drug overdose deaths from synthentic opioids besides methadone, and 5 = drug overdose deaths from heroin. Knowing this information we have chosen to exclude 0 and 1 and conclude that the main cause of drug overdose based on the graph is from synthetic opioids besides methadone.
+
+
+```
+
+
+
 ```{r, echo = F}
 
 ```
 
-White Men Over Time
-```{r, echo = F}
-
-
-```
-
-##
-
-Black Men Over Time
 
 ```{r, echo = F}
 
-
 ```
 
-Native American Men Over Time
+
 ```{r, echo = F}
 ```
 
-Asian Men Over time
+
 ```{r, echo = F}
 ```
 

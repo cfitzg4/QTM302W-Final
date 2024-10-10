@@ -1,6 +1,6 @@
 ---
-title: "Analysis"
-author: "Courtney Fitzgerald"
+title: "EDA Code Notebook Draft"
+author: "Courtney Fitzgerald and Martinez Jean Claude"
 date: "2024-10-03"
 output: html_document
 ---

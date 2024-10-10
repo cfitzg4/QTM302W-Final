@@ -5,85 +5,153 @@ date: "2024-10-03"
 output: html_document
 ---
 #Introduction
-#### Drug overdoses in the US have been steadily increasing over the years. However the distribution of these deaths are not uniform for everyone. Certain groups, whether they be based around age, race, or gender, can be more prone than others to have a drug over dose. To better understand which groups are most at risk and for what drugs they are most likely to be impacted by we perform multiple regressions on data taken from the National Center for Health Staitstics and specifically their National Vital Statistics System. These Data were gathered in 2019. These specific data are labelled as Table 008 on the Center for Disease Control's website. https://www.cdc.gov/nchs/hus/data-finder.htm?year=2019
+#### Drug overdoses in the US have been steadily increasing over the years. However the distribution of these deaths are not uniform for everyone. Certain groups, whether they be based around age, race, or gender, can be more prone than others to have a drug over dose. To better understand which groups are most at risk and for what drugs they are most likely to be impacted by we perform multiple regressions on data taken from the National Center for Health Staitstics and specifically their National Vital Statistics System. These Data were gathered in 2019. These specific data are labeled as Table 008 on the Center for Disease Control's website. https://www.cdc.gov/nchs/hus/data-finder.htm?year=2019
 
 #The Data
 ####First we must load the data in the proper format and get a grasp of the distribution for variables of interest. We must also load in the appropriate packages to clean and analyze the data like, tidyverse and dpylr. 
 ```{r setup, include=FALSE}
-drug_od <- read_csv("drug_data.csv")
 install.packages("tidyverse")
 library(tidyverse)
-install.packages("ggplot")
+install.packages("ggplot2")
+library(ggplot2)
+drug <- read_csv("drug_data.csv")
 ```
 
 
 ##Examining the Data
-####In order to evaluate how to best analyze the data we must familiarize ourselves with the variables and how these variables are oriented. This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 residents  for group listed. 
+####In order to evaluate how to best analyze the data we must familiarize ourselves with the variables and how these variables are oriented. This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 residents  for group listed. Demographic data, like race and sex are listed under the variable "STUB_LABEL_NUM" so we will accordingly disaggregate it and rename it to be more represntative of the variable's contents. 
 ```{r}
 
-table(drug_od$PANEL)
-table(drug_od$PANEL_NUM)
-##This gives us all of the drug overdoses caused by opioids from 1999 - 2018 and groups them by gender/racial identity. 
+##In producing these tables, we can visualize the numerical assignment that corresponds to a given variable category. This information allows us to then clean the data set with new variables that separates race and gender, since these are grouped together. 
 
-opioids1 <- drug_od %>% 
-  filter(PANEL_NUM ==1) %>%
+##This table tells us which single digit number represents the racial/sex level of the STUB_NAME variable. 
+table(drug$STUB_NAME_NUM, drug$STUB_NAME)
+
+## 4 is the number for Race and Gender, so we filtered on this to see which decimal number corresponds to each racial/gender group. 
+drug_exam <- drug %>% 
+  filter(STUB_NAME_NUM == 4)
+
+
+##We make another table with this conclusively find the number and label correspondence. 
+table(drug_exam$STUB_LABEL_NUM, drug_exam$STUB_LABEL)
+
+##4.1 is White Males, 4.2 is Black Males, 4.3 is Native American Males, 4.4 is Asian Males, 4.5 is White Females, 4.6 is Black Females, 4.7 is Native American Females, and 4.8 is Asian Female
+
+drug_racial <- drug %>% 
   filter(STUB_NAME_NUM == 4) %>%
-  filter(YEAR == 2003) %>%
-  mutate(Race_Gender = STUB_NAME_NUM) 
+  rename(Race_Gender = "STUB_LABEL_NUM") %>% 
+  mutate(
+     Race_Gender = case_when(
+      Race_Gender == 4.1 ~ "White Male",
+      Race_Gender == 4.2 ~ "Black Male",
+      Race_Gender == 4.3 ~ "Native American Male",
+      Race_Gender == 4.4 ~ "Asian Male",
+      Race_Gender == 4.5 ~ "White Female",
+      Race_Gender == 4.6 ~ "Black Female",
+      Race_Gender == 4.7 ~ "Native American",
+      Race_Gender == 4.8 ~ "Asian Female",
+      TRUE ~ "Unknown" 
+     ))
 
 
-##use mutate to separate race and gender? 
-##Stub_name corresponds to sex or racial grouping, stub_label specifies the group (i.e. female/male, white/black/etc)
-###stub_name_num, 0 = total, 1 = age range, 2 = sex, 3 = sex/age range, 4 = sex+race, 5 = sex/ethnicity
-###stub_label_num has tenths decimals that correspond to specific pairings (i.e. 4.5 = female and white)
+drug_RG <- drug %>% 
+  filter(STUB_NAME_NUM == 4) %>%
+  rename(Race_Gender = "STUB_LABEL_NUM") %>% 
+  mutate(
+     Race_Gender = case_when(
+      Race_Gender == 4.1 ~ "White Male",
+      Race_Gender == 4.2 ~ "Black Male",
+      Race_Gender == 4.3 ~ "Native American Male",
+      Race_Gender == 4.4 ~ "Asian Male",
+      Race_Gender == 4.5 ~ "White Female",
+      Race_Gender == 4.6 ~ "Black Female",
+      Race_Gender == 4.7 ~ "Native American",
+      Race_Gender == 4.8 ~ "Asian Female",
+      TRUE ~ "Unknown" 
+    )) %>% 
+   mutate(
+    Race = case_when(
+      grepl("Black", Race_Gender) ~ "Black",
+      grepl("White", Race_Gender) ~ "White",
+      grepl("Native American", Race_Gender) ~ "Native American",
+      grepl("Asian", Race_Gender) ~ "Asia",
+      TRUE ~ "Unknown"
+    )) %>% 
+  mutate(
+    Gender = case_when(
+      grepl("Female", Race_Gender) ~ "Female",
+      grepl("Male", Race_Gender) ~ "Male",
+      TRUE ~ "Unknown"))
+  
+
+##To narrow our inquiry further, we will also identify what type of drug was responsible for a given overdose, with another tables 
+table(drug$PANEL, drug$PANEL_NUM)
+
+## This tells us that 0 represents all drug overdose deaths regardless of drug type, 1 represents drug overdose deaths from any opioid, 2 represents any drug overdose death from synthetic opioids, 3 represents drug overdose deaths from methadone, 4 represents drug overdose deaths from sythentic opioids besides methadone, and 5 represents drug overdose deaths from heroin, allowing us to filter accordingly to impact if the death rate estimates vary by racial/gender groups based on the type of drug causing the overdose. 
+
+
   
 ```
 
-```{r}
+## All Racial and Gender Groups, for all Drug Overdose Types, from 1999 - 2018
+```{r, echo = F}
+ggplot(drug_racial, aes(x = factor(YEAR), y = ESTIMATE, fill = Race_Gender)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Estimates by Identity and Year",
+       x = "Year",
+       y = "Estimate") +
+  theme_minimal()
 ```
 
-```{r}
+```{r, echo = F}
 
 ```
 
+White Men Over Time
+```{r, echo = F}
 
-```{r}
-install.packages("tidyverse")
-install.packages("renv")
-library(tidyverse)
-suicide_data <- read_csv("suicide_data.csv")
-suicide1 <- read_csv("data/pc.csv")
-drug_od <- read_csv("drug_data.csv")
-rm(drug_data)
-##use ".." to get to project level data 
-##put "data/" before csv file name if data is in "data" folder 
-renv::snapshot()
-renv::restore()
-renv::hydrate()
 
-##GH:hosting"remotes"
-##clone:local copy of remote
-##remote is "origin"
-##fork: copy repo on GH
-##commit: creating a snapshot of changes
-##push: update remote repository with local changed
-##can't always push after commit, need to pull before pushing to update repo
-##pull: update local repo with commits pushed by others 
 ```
 
 ##
 
-You can also embed plots, for example:
+Black Men Over Time
 
-```{r}
-table(drug_od$PANEL)
-table(drug_od$PANEL_NUM)
+```{r, echo = F}
+
+
 ```
 
-```{r}
+Native American Men Over Time
+```{r, echo = F}
 ```
 
-```{r}
+Asian Men Over time
+```{r, echo = F}
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r, echo = F}
+
+```
+
+```{r, echo = F}
+
+
+```
+
+
+```{r , echo = F}
+
+```
+
+
+```{r, echo = F}
+
+```
+
+
+```{r, echo = F}
+
+```
+

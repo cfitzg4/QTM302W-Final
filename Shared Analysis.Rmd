@@ -182,8 +182,6 @@ type_RS
 
 ```
 
-### INSERT BLURB HERE
-
 ## Viewing Central Tendency of the Outcome Variable 
 
 ```{r}
@@ -259,29 +257,42 @@ std_year_type
 ## ANOVA Test
 
 ```{r, echo = T}
-
 ## A Two Way ANOVA with Race and Sex as the categorical variables of analysis
 RS_Model <- aov(ESTIMATE ~ Race + Sex,
   data = drug_RS
 )
-
 summary(RS_Model)
 
+table(drug_RS$Sex, drug_RS$Race)
+## From the table we can see this is somewhat of a balanced Two-way ANOVA as we can see close to the same number of observations across the different categories
+```
+**A two-way ANOVA conducted between Race and Sex in relation to the outcome of drug overdose. The H0 (null hypothesis) suggest that there is no difference of the means between the 2 groups : u1=u2=u3. While the Ha (alternative hypothesis) suggest that there is a difference between at least one of the means of the 2 groups. The results indicate that both Race and Sex are significant to the outcome of dug overdose. With a high F-value and small p-value below the alpha level of 0.5, both Race and Sex are significant effects of the outcome.**
+
+**However the amount of residuals in our test suggest there is still another factor that explains the variability in the outcome of drug overdose.**
+
+# Inclusion of Iteraction term
+
+```{r, echo = T}
 ## A Two Way ANOVA with Race and Sex as the categorical variables of analysis, with an additional consideration for an interaction effect between these two variables
 RS_IntModel <- aov(ESTIMATE ~ Race + Sex + Race:Sex,
   data = drug_RS
 )
 
 summary(RS_IntModel)
+```
+**Based on the result, we can see that the interaction didn't provided any statistical significance to the outcome of the drug overdose. This is indicated from the low f-value an da high p-value over 0.05. The interaction term with a p-value of 0.065 indicates that we fail to reject the null hypothesis.**
 
+# Inclusion of an additional predictor 
+
+```{r, echo = T}
 ## A Three Way Anova with Race, Sex, and Responsible Drug as the categorical variable of analysis 
 Type_Model<- aov(ESTIMATE ~ Race + Sex + Responsible_Drug,
   data = drug_RS)
 summary(Type_Model)
 
 
-
 ```
+**Conducted a three way ANOVA we wanted to determine whether or not the responsible_drug factor played a role in the outcome of drug overdoses. Based on the results we can see that inclusion of responsible drug is statistically significant. The f-values of 161.09 and a p-value of <2e-16, showcased that the responsible_drug plays a role in drug overdose. We can also see a decrease in the residuals indicating, that the predictor can be used to explain the variability of drug outcome.** 
 
 
 ```{r, echo = F}

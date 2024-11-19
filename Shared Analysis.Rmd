@@ -41,7 +41,7 @@ drug_type <- drug %>%
      Responsible_Drug = case_when(
       Responsible_Drug == 0 ~ "All Drug Types",
       Responsible_Drug == 1 ~ "Any Opioid",
-      Responsible_Drug == 2 ~ "Natural or Semisynthetic Opioid",
+      Responsible_Drug == 2 ~ "Natural/Semisynthetic Opioid",
       Responsible_Drug == 3 ~ "Methadone",
       Responsible_Drug == 4 ~ "Synthetic Opioid",
       Responsible_Drug == 5 ~ "Heroin",
@@ -50,7 +50,7 @@ drug_type <- drug %>%
 
 ##We complete the factor function here to maintain the order of the drug levels in future visualizations. 
 
-drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All Drug Types", "Any Opioid", "Natural or Semisynthetic Opioid", "Methadone", "Synthetic Opioid", "Heroin"))
+drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All Drug Types", "Any Opioid", "Natural/Semisynthetic Opioid", "Methadone", "Synthetic Opioid", "Heroin"))
 
 ##We then produced tables to clarify the required demographic data. Specifically, we are looking for what number is populated by observations. This information allows us to then subset the data from the larger data set that are organized by race and sex. 
 
@@ -70,7 +70,6 @@ table(drug_exam$STUB_LABEL_NUM, drug_exam$STUB_LABEL)
 ## We make another subset that disaggregates race and sex so that we can perform a 2-way ANOVA to see if these two variables are statistically significant predictors for drug overdose mortality. 
 drug_RES <- drug_type %>% 
   filter(STUB_NAME_NUM == 5) %>%
-  filter(Responsible)
   rename(Race_Ethnicity = "STUB_LABEL_NUM") %>% 
   mutate(
      Race_Ethnicity = case_when(
@@ -134,7 +133,7 @@ overall_plot_M <- ggplot(drug_Male, aes(x = factor(YEAR), y = ESTIMATE, fill = R
   labs(title = "Estimates for Males by Identity and Year",
        x = "Year",
        y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") +  theme(plot.title = element_text(hjust = 0.5)) 
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") +  theme(plot.title = element_text(hjust = 0.5)) + ylim(0,20)
 
 
 overall_plot_F <- ggplot(drug_Fem, aes(x = factor(YEAR), y = ESTIMATE, fill = Race_Ethnicity)) +
@@ -142,7 +141,7 @@ overall_plot_F <- ggplot(drug_Fem, aes(x = factor(YEAR), y = ESTIMATE, fill = Ra
   labs(title = "Estimates for Females by Identity and Year",
        x = "Year",
        y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") +  theme(plot.title = element_text(hjust = 0.5))+ ylim(0,30)
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") +  theme(plot.title = element_text(hjust = 0.5))+ ylim(0,20)
 
 overall_plot_F
 grid.arrange(overall_plot_F, overall_plot_M)
@@ -155,21 +154,13 @@ grid.arrange(overall_plot_F, overall_plot_M)
 
 ## To visualize our data, we first looked at the distribution of Race_Sex by the estimate, to see which race and gender had the highest rate of drug overdose.
 
-box_RS <- ggplot(drug_intersection, aes(x = Race_Sex, y = ESTIMATE, fill = Race_Sex)) +
-  geom_boxplot(na.rm = TRUE) +
-  labs(title = "Distribution of Overdose Estimates by Race and Gender", 
-       x = "Race and Sex Identity", 
-       y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + theme(plot.title = element_text(hjust = 0.5))
- 
-box_RS
 
 ## The median lines of each box plot imply that among all drug types and across the 20 year period of the data, Native American Males and White Males have the highest rates of death from overdose. It appears that White Males and Black Males have the highest variation as it relates to drug overdoses. We can verify these findings in the next section where we analyze the central tendencies of the data. 
 
 
 ## The next variable we looked at is the YEAR to showcase the distribution of how the number of overdose has changed over time. Instead of focusing on both the race and sex, we found it would be beneficial to just focus sex as the graph might be over saturated.
 
-year_Sex <- ggplot(drug_RE, aes(x = factor(YEAR), y = ESTIMATE, fill = Sex)) +
+year_Sex <- ggplot(drug_RES, aes(x = factor(YEAR), y = ESTIMATE, fill = Sex)) +
   geom_boxplot(na.rm = TRUE) +
   labs(title = "Distribution of Overdose Estimates by Sex and Year", 
        x = "Year", 
@@ -205,9 +196,31 @@ type_RE <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill
   labs(title = "Overdose Estimates by Drug Type and Race/Sex Identity", 
        x = "Drug Type", 
        y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Sex Identity") + theme(plot.title = element_text(hjust = 0.5))
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Sex Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0,20)
 
 type_RE
+
+
+
+type_REF <- ggplot(drug_Fem, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Race_Ethnicity)) +
+  geom_bar(stat = "identity", position = "dodge",na.rm = TRUE) +
+  labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity (Women)", 
+       x = "Drug Type", 
+       y = "Estimated Deaths per 100,000") +
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0, 20)
+
+
+
+type_REM <- ggplot(drug_Male, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Race_Ethnicity))+
+  geom_bar(stat = "identity", position = "dodge",na.rm = TRUE) +
+  labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity (Men)", 
+       x = "Drug Type", 
+       y = "Estimated Deaths per 100,000") +
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0, 20)
+
+type_REF
+type_REM
+
 
 ```
 
@@ -221,9 +234,9 @@ type_RE
 ## To understand the information from the data, we have to understand the outcome variable which showcase the estimate for drug overdose death, these aggregrate measures are for all race/sex pairings across time, and provided a "standard" of sorts when comparing mean, median, or standard deviation for a specific year, race, and/or sex group. 
 
 
-mean_estimate <- mean(drug_intersection$ESTIMATE, na.rm = TRUE) #4.2
-median_estimate <- median(drug_intersection$ESTIMATE, na.rm = TRUE) #2
-std_estimate <- sd(drug_intersection$ESTIMATE, na.rm = TRUE) #5.19
+mean_estimate <- mean(drug_RES$ESTIMATE, na.rm = TRUE) #4.2
+median_estimate <- median(drug_RES$ESTIMATE, na.rm = TRUE) #2
+std_estimate <- sd(drug_RES$ESTIMATE, na.rm = TRUE) #5.19
 
 
 
@@ -306,20 +319,25 @@ summary(RS_Model)
 
 table(drug_RS$Sex, drug_RS$Race)
 
-m1 <- aov(ESTIMATE ~ Race_Ethnicity, data = drug_RES)
+m1 <- aov(ESTIMATE ~ Ethnicity, data = drug_RES)
 m2 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity, data = drug_RES)
 m3 <- aov(ESTIMATE ~ Race_Ethnicity + Sex, data = drug_RES)
 m4 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Sex, data = drug_RES)
+m4.1 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Sex + Sex:Race_Ethnicity + Responsible_Drug, data = drug_RES)
 m5 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Sex + Responsible_Drug, data = drug_RES)
 m6 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Ethnicity:Race_Ethnicity, data = drug_RES)
 m7 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Race_Ethnicity:Responsible_Drug, data = drug_RES)
+m8 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Responsible_Drug + Race_Ethnicity:Responsible_Drug, data = drug_RES)
 
 summary(m1)
 summary(m2)
 summary(m3)
 summary(m4)
+summary(m4.1)
 summary(m5)
 summary(m6)
+summary(m7)
+summary(m8)
 
 ## From the table we can see this is somewhat of a balanced Two-way ANOVA as we can see close to the same number of observations across the different categories
 ```

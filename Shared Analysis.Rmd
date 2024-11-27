@@ -4,35 +4,41 @@ author: "Courtney Fitzgerald and Martinez Jean Claude"
 date: "2024-10-22"
 output: html_document
 ---
-# Introduction
+## Introduction
 
-## Background
 
-#### Opioids are a serious problem in the United States. Since the late 1990's the opioid crisis has steadily worsened. Many attribute the origins of this epidemic to the "Pain as the 5th Vital Sign" campaign and the FDA's approval of the infamous OxyContin drug. While the opioid crisis is considered a public health emergency, it is not uniformly harmful for everyone. Like many epidemics, certain demographic groups are more at risk than others. 
+#### Background
 
-## Purpose 
+Opioids are a serious problem in the United States. Since the late 1990's the **opioid crisis has steadily worsened**. Many attribute the origins of this epidemic to the "Pain as the 5th Vital Sign" campaign and the FDA's approval of the infamous Oxycontin drug. While the opioid crisis is considered a public health emergency, it is not uniformly harmful for everyone. Like many epidemics, **certain demographic groups are more at risk than others**. 
 
-#### Understanding how and why certain groups are most at risk of dying from opioids is the first step to reducing the magnitude of this epidemic. This information will enable targetted interventions, whether they be at the community or policy level. 
+#### Purpose 
 
-## Objectives
+Understanding **how and why certain groups are most at risk of dying from opioids** is the first step to reducing the magnitude of this epidemic. This information will **enable targeted interventions**, whether they be at the community or policy level. 
 
-#### This project will examine some of the demographic factors, like age, race/ethnicity, and gender, that contribute to and influence the harrowing opioid epidemic in the United States. Through this demographic analysis, we will examine what cultural and societal factors lead to variations between certain groups. 
+#### Objectives
 
-### Research Question 
+This project **will examine some of the demographic factors, like age, race/ethnicity, and gender, that contribute to and influence the harrowing opioid epidemic in the United States**. Through this demographic analysis, we will examine what cultural and societal factors lead to variations between certain groups. 
 
-#### Specifically, we want to answer; How do race, ethnicity, and gender contribute to variations in opioid-related mortalities? 
+#### Research Question 
 
-# The Data 
+Specifically, we want to answer; *How do race, ethnicity, and gender contribute to variations in opioid-related mortalities?* 
 
-## Source
 
-#### The data employed in this study is taken from the National Center for Health Staitstics and specifically their National Vital Statistics System. These Data were gathered in 2019 and are based off of information taken from death certificates.The official information provided about the data set on the Center for Disease Control's website is, "Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018". We use this dataset because it provides the demographic variables we need to explore between group comparisons, and it also provides an estimated rate of deaths per 100,000 for a given group. As such, the data's appropriate combination of numerical and categorical variables will allow us to perform the appropriate statistical tests given our independent variables of race, ethnicity, and gender, and our single dependent variable of estimated death rate.
+## The Data 
 
-#### Additional information about the data: https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data
 
-#### The data in CSV file format can be found here: https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008.
+#### Source
 
-**Variables** | **Description **  
+The data employed in this study is taken from the National Center for Health Statistics and specifically their National Vital Statistics System. 
+
+The data were gathered in 2019 and is based off of information taken from death certificates.The official information provided about the data set on the Center for Disease Control's website is, "[Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data)". 
+
+We use this dataset because it provides the demographic variables we need to explore between group comparisons, and it also provides an estimated rate of deaths per 100,000 for a given group. As such, the data's appropriate combination of numerical and categorical variables will allow us to perform the appropriate statistical tests given our independent variables of race, ethnicity, and gender, and our single dependent variable of estimated death rate.
+
+**Additional information:**
+The data in CSV file format can be found [here](https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008).
+
+**Variables** | **Description**  
 --- | ---  
 Age | Ages of the observations but not specified in the dataset 
 Sex | Male or Female   
@@ -42,13 +48,27 @@ Drug Type | Natural/Semisynthetic Opioid or Methadone or Heroin or Synthetic Opi
 Year | 1999 - 2018   
 Estimate | Drug overdose death rates     
 
+#### Data Limitations
 
-## Data Limitations
+While these data do include information on race, gender, and sex, they are not aggregated to our liking:
 
-#### While these data do include information on race, gender, and sex, they are not disaggregated to our liking. When Hispanic ethnicity is identified, there is no race to accompany it. This means that we cannot explicitly analyze the influence of ethnicity on a specific race, but rather on all races. For this reason we will create two separate variables relating to race/ethnicity, one that includes race and ethnicity together and another that just specifices Hispanic or not without any racial measure. Additionally, we only have information about sex, since these data are from death certificates. As such, we cannot consider the influence of other potentially relevant factors like one's gender identity. We can also not examine how sexual orientation impacts opioid mortality, as there is no measure of this either. It is important to note that these data are taken from death certificates, but do not include any potentual identifying data. 
+1. **When Hispanic ethnicity is identified, there is no race to accompany it.**  
+    - We cannot explicitly analyze the influence of ethnicity on a specific race, but rather on all races.  
+    - For this reason, we will create two separate variables relating to race/ethnicity:  
+        - One that includes race and ethnicity together.  
+        - Another that specifies Hispanic or not without any racial measure.
+
+2. **Additionally, we only have information about sex, since these data are from death certificates.**  
+    - As such, we cannot consider the influence of other potentially relevant factors like one's gender identity.
+
+3. **We cannot examine how sexual orientation impacts opioid mortality.**  
+    - There is no measure of this either.
+
+_It is important to note that these data are taken from death certificates, but do not include any potential identifying data._ 
 
 
 ## Subsetting the Data
+
 
 #### These data were organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called "STUB_LABEL". We must another variable called "STUB_NAME" and the corresponding numerical variables "STUB_LABEL_NUM" and "STUB_NAME_NUM" to relabel the required variables and subset them accordingly for our analysis. Each "STUB_NAME_NUM" number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the "Sex and race and Hispanic origin" level of the "STUB_NAME" variable which corresponds to 5 in "STUB_NAME_NUM." A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
 ### For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity. 

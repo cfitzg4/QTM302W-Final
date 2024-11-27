@@ -32,6 +32,17 @@ output: html_document
 
 #### The data in CSV file format can be found here: https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008.
 
+**Variables** | **Description **  
+--- | ---  
+Age | Ages of the observations but not specified in the dataset 
+Sex | Male or Female   
+Ethnicity | Hispanic non-specified race or Non-Hispanic    
+Race_Ethnicity | NH-Black or NH-White or NH-Native American or NH-AAPI or Hispanic non-specified race     
+Drug Type | Natural/Semisynthetic Opioid or Methadone or Heroin or Synthetic Opioid   
+Year | 1999 - 2018   
+Estimate | Drug overdose death rates     
+
+
 ## Data Limitations
 
 #### While these data do include information on race, gender, and sex, they are not disaggregated to our liking. When Hispanic ethnicity is identified, there is no race to accompany it. This means that we cannot explicitly analyze the influence of ethnicity on a specific race, but rather on all races. For this reason we will create two separate variables relating to race/ethnicity, one that includes race and ethnicity together and another that just specifices Hispanic or not without any racial measure. Additionally, we only have information about sex, since these data are from death certificates. As such, we cannot consider the influence of other potentially relevant factors like one's gender identity. We can also not examine how sexual orientation impacts opioid mortality, as there is no measure of this either. It is important to note that these data are taken from death certificates, but do not include any potentual identifying data. 
@@ -49,11 +60,11 @@ output: html_document
 #### In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups. We will also load in the data  
 
 ```{r setup}
-install.packages("tidyverse",repos = "http://cran.us.r-project.org")
+
 library(tidyverse)
-install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+
 library(ggplot2)
-install.packages("gridExtra", repos = "http://cran.us.r-project.org")
+
 library(gridExtra)
 drug <- read_csv("drug_data.csv", show_col_types = F)
 ```
@@ -287,55 +298,55 @@ std_estimate <- sd(drug_RES$ESTIMATE, na.rm = TRUE) #5.19
 
 ## To gain a better understanding of the outcome, we chose to focus on the mean of the different races and gender to see the mean of drug overdose death rate amongst the different groups as well as the standard deviation 
 
-meanrace <- drug_RS %>%
-  group_by(Race, Sex) %>%
+meanrace <- drug_RES %>%
+  group_by(Race_Ethnicity, Sex) %>%
   summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 meanrace
 
-stdrace<- drug_RS %>%
-  group_by(Race, Sex) %>%
+stdrace<- drug_RES %>%
+  group_by(Race_Ethnicity, Sex) %>%
   summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 stdrace
 
 ##Racial Group Mean and Standard Deviation by Year
 
-mean_year_race <- drug_RS %>% 
-  group_by(YEAR, Race) %>% 
+mean_year_race <- drug_RES %>% 
+  group_by(YEAR, Race_Ethnicity) %>% 
    summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 mean_year_race
 
-std_year_race <- drug_RS %>% 
-  group_by(YEAR, Race) %>% 
+std_year_race <- drug_RES %>% 
+  group_by(YEAR, Race_Ethnicity) %>% 
     summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 std_year_race
 
 #Sex Group Mean and Standard Deviation by Year
 
-mean_year_sex <- drug_RS %>% 
+mean_year_sex <- drug_RES %>% 
   group_by(YEAR, Sex) %>% 
    summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 mean_year_sex
 
-std_year_sex <- drug_RS %>% 
+std_year_sex <- drug_RES %>% 
   group_by(YEAR, Sex) %>% 
      summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 std_year_sex
 
 ##Drug Type Mean and Standard Deviation by Year 
-mean_year_type <- drug_RS %>% 
+mean_year_type <- drug_RES %>% 
   group_by(YEAR, Responsible_Drug) %>% 
   filter(!Responsible_Drug %in% c("All Drug Types", "Any Opioid")) %>% 
   summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 mean_year_type
 
-std_year_type <- drug_RS %>% 
+std_year_type <- drug_RES %>% 
   group_by(YEAR, Sex) %>% 
   filter(!Responsible_Drug %in% c("All Drug Types", "Any Opioid")) %>% 
   summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
@@ -356,12 +367,12 @@ std_year_type
 ### Initial Test
 ```{r, echo = T}
 ## A Two Way ANOVA with Race and Sex as the categorical variables of analysis
-RS_Model <- aov(ESTIMATE ~ Race + Sex,
-  data = drug_RS
+RS_Model <- aov(ESTIMATE ~ Race_Ethnicity + Sex,
+  data = drug_RES
 )
 summary(RS_Model)
 
-table(drug_RS$Sex, drug_RS$Race)
+table(drug_RES$Sex, drug_RES$Race_Ethnicity)
 
 m1 <- aov(ESTIMATE ~ Ethnicity, data = drug_RES)
 m2 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity, data = drug_RES)
@@ -394,8 +405,8 @@ summary(m8)
 
 ```{r, echo = T}
 ## A Two Way ANOVA with Race and Sex as the categorical variables of analysis, with an additional consideration for an interaction effect between these two variables
-RS_IntModel <- aov(ESTIMATE ~ Race + Sex + Race:Sex,
-  data = drug_RS
+RS_IntModel <- aov(ESTIMATE ~ Race_Ethnicity + Sex + Race_Ethnicity:Sex,
+  data = drug_RES
 )
 
 summary(RS_IntModel)
@@ -406,8 +417,8 @@ summary(RS_IntModel)
 
 ```{r, echo = T}
 ## A Three Way Anova with Race, Sex, and Responsible Drug as the categorical variable of analysis 
-Type_Model<- aov(ESTIMATE ~ Race + Sex + Responsible_Drug,
-  data = drug_RS)
+Type_Model<- aov(ESTIMATE ~ Race_Ethnicity + Sex + Responsible_Drug,
+  data = drug_RES)
 summary(Type_Model)
 
 

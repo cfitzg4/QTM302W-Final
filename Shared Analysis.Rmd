@@ -46,7 +46,7 @@ Ethnicity | Hispanic non-specified race or Non-Hispanic
 Race_Ethnicity | NH-Black or NH-White or NH-Native American or NH-AAPI or Hispanic non-specified race     
 Drug Type | Natural/Semisynthetic Opioid or Methadone or Heroin or Synthetic Opioid   
 Year | 1999 - 2018   
-Estimate | Drug overdose death rates     
+Estimate | Rate of Overdose Deaths per 100,000     
 
 #### Data Limitations
 

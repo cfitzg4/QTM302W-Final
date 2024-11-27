@@ -4,14 +4,50 @@ author: "Courtney Fitzgerald and Martinez Jean Claude"
 date: "2024-10-22"
 output: html_document
 ---
-## Introduction
+# Introduction
+
+## Background
+
+#### Opioids are a serious problem in the United States. Since the late 1990's the opioid crisis has steadily worsened. Many attribute the origins of this epidemic to the "Pain as the 5th Vital Sign" campaign and the FDA's approval of the infamous OxyContin drug. While the opioid crisis is considered a public health emergency, it is not uniformly harmful for everyone. Like many epidemics, certain demographic groups are more at risk than others. 
+
+## Purpose 
+
+#### Understanding how and why certain groups are most at risk of dying from opioids is the first step to reducing the magnitude of this epidemic. This information will enable targetted interventions, whether they be at the community or policy level. 
+
+## Objectives
+
+#### This project will examine some of the demographic factors, like age, race/ethnicity, and gender, that contribute to and influence the harrowing opioid epidemic in the United States. Through this demographic analysis, we will examine what cultural and societal factors lead to variations between certain groups. 
+
+### Research Question 
+
+#### Specifically, we want to answer; How do race, ethnicity, and gender contribute to variations in opioid-related mortalities? 
+
+# The Data 
+
+## Source
+
+#### The data employed in this study is taken from the National Center for Health Staitstics and specifically their National Vital Statistics System. These Data were gathered in 2019 and are based off of information taken from death certificates.The official information provided about the data set on the Center for Disease Control's website is, "Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018". We use this dataset because it provides the demographic variables we need to explore between group comparisons, and it also provides an estimated rate of deaths per 100,000 for a given group. As such, the data's appropriate combination of numerical and categorical variables will allow us to perform the appropriate statistical tests given our independent variables of race, ethnicity, and gender, and our single dependent variable of estimated death rate.
+
+#### Additional information about the data: https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data
+
+#### The data in CSV file format can be found here: https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008.
+
+## Data Limitations
+
+#### While these data do include information on race, gender, and sex, they are not disaggregated to our liking. When Hispanic ethnicity is identified, there is no race to accompany it. This means that we cannot explicitly analyze the influence of ethnicity on a specific race, but rather on all races. For this reason we will create two separate variables relating to race/ethnicity, one that includes race and ethnicity together and another that just specifices Hispanic or not without any racial measure. Additionally, we only have information about sex, since these data are from death certificates. As such, we cannot consider the influence of other potentially relevant factors like one's gender identity. We can also not examine how sexual orientation impacts opioid mortality, as there is no measure of this either. It is important to note that these data are taken from death certificates, but do not include any potentual identifying data. 
 
 
-#### Drug overdoses in the US have been steadily increasing over the years. However the distribution of these deaths are not uniform for everyone. Certain groups, whether they be based around age, race, or sex, can be more prone than others to have a drug over dose. To better understand which groups are most at risk and for what drugs they are most likely to be impacted by we produced multiple descriptive visualizations and ANOVA tests on data taken from the National Center for Health Staitstics and specifically their National Vital Statistics System. These Data were gathered in 2019 and are based off of information taken from death certificates. The official information provided about the data set on the Center for Disease Control's website is, "Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018". Additional information about these specific data can be found here: https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data. The CSV formatted data can be found here: https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008. Chart visualizations of the data are available here: https://www.cdc.gov/nchs/data/hus/2019/008-508.pdf. It is important to note that there is no gender variable in this data set, but rather a sex variable. As such, we cannot confirm or deny if gender minorities, like non-binary individiuals, transgender men, and transgender women are included in the data set, which reduces the inclusion and representation of these data. To avoid confusion regarding this, we will explicitly refer to this variable as sex or sexual identity as to not misrepresent the data. For the sake of the present analysis, we focus on race and sexual identity, this is because of the intersectional nature of these two identities and how they are tied to systemic disaprities. Moreover, the selection of these groups will enable more targeted interventions based upon the findings.  
+## Subsetting the Data
 
-## The Data
+#### These data were organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called "STUB_LABEL". We must another variable called "STUB_NAME" and the corresponding numerical variables "STUB_LABEL_NUM" and "STUB_NAME_NUM" to relabel the required variables and subset them accordingly for our analysis. Each "STUB_NAME_NUM" number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the "Sex and race and Hispanic origin" level of the "STUB_NAME" variable which corresponds to 5 in "STUB_NAME_NUM." A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
+### For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity. 
 
-#### First we must load the data in the proper format and get a grasp of the distribution for variables of interest. We must also load in the appropriate packages to clean and analyze the data like, tidyverse and ggplot. 
+# Methods
+
+##Loading in the Data and Packages
+
+#### In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups. We will also load in the data  
+
 ```{r setup}
 install.packages("tidyverse",repos = "http://cran.us.r-project.org")
 library(tidyverse)
@@ -22,6 +58,14 @@ library(gridExtra)
 drug <- read_csv("drug_data.csv", show_col_types = F)
 ```
 
+
+# Findings/Discussion
+
+# Conclusion 
+
+##
+
+#### First we must load the data in the proper format and get a grasp of the distribution for variables of interest. We must also load in the appropriate packages to clean and analyze the data like, tidyverse and ggplot. 
 
 ## Examining and Cleaning the Data
 
@@ -169,7 +213,7 @@ year_Sex <- ggplot(drug_RES, aes(x = factor(YEAR), y = ESTIMATE, fill = Sex)) +
 
 year_Sex
 
-year_Ethnicity <- ggplot(drug_RES, aes(x = factor(YEAR), y = ESTIMATE, fill = Ethnicity)) +
+year_Ethnicity <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Ethnicity)) +
   geom_boxplot(na.rm = TRUE) +
   labs(title = "Distribution of Overdose Estimates by Ethnicity and Year", 
        x = "Year", 
@@ -332,8 +376,8 @@ m8 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Responsible_Drug + Race_Ethnic
 summary(m1)
 summary(m2)
 summary(m3)
-summary(m4)
 summary(m4.1)
+summary(m4)
 summary(m5)
 summary(m6)
 summary(m7)
@@ -373,3 +417,6 @@ summary(Type_Model)
 
 #### Lastly, we conducted a three way ANOVA we wanted to determine whether or not the Responsible_drug factor played a role in the outcome of drug overdoses. Based on the results we can see that inclusion of responsible drug is statistically significant. The f-values of 161.09 and a p-value of <2e-16, showcased that the Responsible_drug, or the type of drug, plays a role in drug overdose deaths. We can also see a decrease in the residuals indicating, that the Responsible_Drug variable accounted for some of the variability of the Estimate outcome variable.  
 
+
+
+#### Drug overdoses in the US have been steadily increasing over the years. However the distribution of these deaths are not uniform for everyone. Certain groups, whether they be based around age, race, or sex, can be more prone than others to have a drug over dose. To better understand which groups are most at risk and for what drugs they are most likely to be impacted by we produced multiple descriptive visualizations and ANOVA tests on data taken from the National Center for Health Staitstics and specifically their National Vital Statistics System. These Data were gathered in 2019 and are based off of information taken from death certificates. The official information provided about the data set on the Center for Disease Control's website is, "Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018". Additional information about these specific data can be found here: https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data. The CSV formatted data can be found here: https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008. Chart visualizations of the data are available here: https://www.cdc.gov/nchs/data/hus/2019/008-508.pdf. It is important to note that there is no gender variable in this data set, but rather a sex variable. As such, we cannot confirm or deny if gender minorities, like non-binary individiuals, transgender men, and transgender women are included in the data set, which reduces the inclusion and representation of these data. To avoid confusion regarding this, we will explicitly refer to this variable as sex or sexual identity as to not misrepresent the data. For the sake of the present analysis, we focus on race and sexual identity, this is because of the intersectional nature of these two identities and how they are tied to systemic disaprities. Moreover, the selection of these groups will enable more targeted interventions based upon the findings.  

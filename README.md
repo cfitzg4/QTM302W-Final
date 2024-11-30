@@ -11,19 +11,30 @@
     - Challenges
     - Future Directions 
   - Instructions to Get Started
+    - RMarkdown Notebook
+    - Slides
   - Contact Info
     
 ## Project Objectives
-With this project we intend to understand how and why certain groups are more at risk of dying from opioids. From acquiring this information, we hope to enable targeted interventions to help reduce the spread and magnitude of the opioid epidemic. 
+The opioid epidemic was classified as a public health crisis in 2017, due to the alarming and drastic increase in mortality. With this project we intend to understand how and why certain groups are more at risk of dying from opioids. We focus specifically on variation on the basis of race, ethnicity, and sex. From acquiring this information, we hope to enable targeted interventions to help reduce the spread and magnitude of the opioid epidemic. 
 
 ## Methods
+- Inferential Statistics: ANOVA
+- Data Visualization: Bar Graphs
+  
 We utilize ANOVA to complete our statistical analyses for this project. The nature of our data is primarily categorical, with our outcome variable being the only numerical. As such, multivariate ANOVA tests are the optimal way to complete our inquiry. 
 
 ## Platforms & Language
+- RStudio (RMarkdown)
+- HTML
+  
 To complete this project, we rely upon RStudio, specifically RMarkdown, to code necessary statistical tests and visualizations, as well as writing up relevant summaries and descriptions to accompany and clarify the code. We use Github to make this project publically available. As such, we also use HTML. 
 
 
 ## Project Description 
+### The Data
+The data for this project are from the National Center for Health Statistics, specifically the National Vital Statistics System. The official title is "Drug overdise death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018." The data can be found here: [data set](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data).
+
 ### Research Question
 How do race, ethnicity, and gender contribute to variations in opioid-related mortalities?
 
@@ -35,3 +46,17 @@ The formatting of the data itself proved to be troublesome. While we did manage 
 
 ### Future Directions 
 We hope do do more exploration, focusing on cultural meanings and influences for certain enthoracial and sex groups. For example, access to medical care, which has been found to vary among different racial/ethnic groups could be contributing to variation in mortality. This is because opioid abuse often begins from prescribed usage per a medical professional. However, given that our data is from death certificates it is extremely difficult to ascertain how an individual ended up dying, as we can only see what drug is responsible for their death.  
+
+## Getting Started 
+1. Clone this repository
+2. Download raw data 
+
+## Our Materials
+- [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- [RMarkdown Notebook]()
+
+## Contact
+|Name     |  Slack Handle   | 
+|---------|-----------------|
+|[Courtney Fitzgerald](https://github.com/[cfitzg4])| @cfitzg4        |
+|[Martinez Jean Claude](https://github.com/[martinezjc-87]) | @martinezjc-87    |

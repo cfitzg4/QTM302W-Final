@@ -49,7 +49,8 @@ We hope do do more exploration, focusing on cultural meanings and influences for
 
 ## Getting Started 
 1. Clone this repository
-2. Download raw data 
+2. Download raw data [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/drug_data.csv)
+3. Data cleaning and processing [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)
 
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)

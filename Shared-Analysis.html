@@ -493,29 +493,22 @@ mortality.</strong>
 certificates, but do not include any potential identifying
 data.</em></p>
 </div>
-</div>
-<div id="subsetting-the-data" class="section level2">
-<h2>Subsetting the Data</h2>
-<div id="these-data-were-organized-in-a-way-that-required-a-considerable-amount-of-cleaning-and-subsetting-in-order-to-isolate-the-measures-we-intended-to-explore.-specifically-the-demographic-measures-do-not-have-their-own-variables-but-rather-are-compiled-into-one-variable-called-stub_label.-we-must-another-variable-called-stub_name-and-the-corresponding-numerical-variables-stub_label_num-and-stub_name_num-to-relabel-the-required-variables-and-subset-them-accordingly-for-our-analysis.-each-stub_name_num-number-corresponds-to-categorical-measures-for-the-sake-of-our-analysis-we-will-focus-on-the-sex-and-race-and-hispanic-origin-level-of-the-stub_name-variable-which-corresponds-to-5-in-stub_name_num.-a-similar-categorization-system-exists-for-specific-groups-with-the-stub_label-and-stub_label_num-corresponding-to-female-not-hispanic-or-latino-white-and-5.7-respectively.-the-stub_label_num-builds-upon-the-stub_name_num-with-a-decimal-number-to-denote-a-specific-sex-ethnicity-and-race." class="section level4">
-<h4>These data were organized in a way that required a considerable
+<div id="subsetting-the-data" class="section level4">
+<h4>Subsetting the Data</h4>
+<p>These data were organized in a way that required a considerable
 amount of cleaning and subsetting in order to isolate the measures we
 intended to explore. Specifically, the demographic measures do not have
 their own variables, but rather are compiled into one variable, called
-“STUB_LABEL”. We must another variable called “STUB_NAME” and the
-corresponding numerical variables “STUB_LABEL_NUM” and “STUB_NAME_NUM”
+“STUB_LABEL”.</p>
+<p>We must create another variable called <strong>“STUB_NAME”</strong>
+and the corresponding numerical variables
+<strong>“STUB_LABEL_NUM”</strong> and <strong>“STUB_NAME_NUM”</strong>
 to relabel the required variables and subset them accordingly for our
-analysis. Each “STUB_NAME_NUM” number corresponds to categorical
-measure(s), for the sake of our analysis, we will focus on the “Sex and
-race and Hispanic origin” level of the “STUB_NAME” variable which
-corresponds to 5 in “STUB_NAME_NUM.” A similar categorization system
-exists for specific groups with the “STUB_LABEL” and “STUB_LABEL_NUM”
-corresponding to “Female: Not Hispanic or Latino: White” and 5.7,
-respectively. The “STUB_LABEL_NUM” builds upon the “STUB_NAME_NUM” with
-a decimal number to denote a specific sex, ethnicity, and race.</h4>
-</div>
-<div id="for-this-study-we-subset-the-data-to-exclusively-include-observations-with-specified-sex-race-and-ethnicity." class="section level3">
-<h3>For this study we subset the data to exclusively include
-observations with specified sex, race, and ethnicity.</h3>
+analysis.</p>
+<pre><code>- Each &quot;STUB_NAME_NUM&quot; number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the &quot;Sex and race and Hispanic origin&quot; level of the &quot;STUB_NAME&quot; variable which corresponds to 5 in &quot;STUB_NAME_NUM.&quot;
+-A similar categorization system exists for specific groups with the &quot;STUB_LABEL&quot; and &quot;STUB_LABEL_NUM&quot; corresponding to &quot;Female: Not Hispanic or Latino: White&quot; and 5.7, respectively. The &quot;STUB_LABEL_NUM&quot; builds upon the &quot;STUB_NAME_NUM&quot; with a decimal number to denote a specific sex, ethnicity, and race. </code></pre>
+<p><strong><em>For this study we subset the data to exclusively include
+observations with specified sex, race, and ethnicity.</em></strong></p>
 </div>
 </div>
 <div id="methods" class="section level1">

@@ -67,11 +67,18 @@ While these data do include information on race, gender, and sex, they are not a
 _It is important to note that these data are taken from death certificates, but do not include any potential identifying data._ 
 
 
-## Subsetting the Data
+
+#### Subsetting the Data
+
+These data were organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called "STUB_LABEL". 
+
+We must create another variable called **"STUB_NAME"** and the corresponding numerical variables **"STUB_LABEL_NUM"** and **"STUB_NAME_NUM"** to relabel the required variables and subset them accordingly for our analysis. 
+
+    - Each "STUB_NAME_NUM" number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the "Sex and race and Hispanic origin" level of the "STUB_NAME" variable which corresponds to 5 in "STUB_NAME_NUM."
+    -A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
 
 
-#### These data were organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called "STUB_LABEL". We must another variable called "STUB_NAME" and the corresponding numerical variables "STUB_LABEL_NUM" and "STUB_NAME_NUM" to relabel the required variables and subset them accordingly for our analysis. Each "STUB_NAME_NUM" number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the "Sex and race and Hispanic origin" level of the "STUB_NAME" variable which corresponds to 5 in "STUB_NAME_NUM." A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
-### For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity. 
+***For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity.***
 
 # Methods
 

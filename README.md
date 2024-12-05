@@ -33,10 +33,10 @@ To complete this project, we rely upon RStudio, specifically RMarkdown, to code 
 
 ## Project Description 
 ### The Data
-The data for this project are from the National Center for Health Statistics, specifically the National Vital Statistics System. The official title is "Drug overdise death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018." The data can be found here: [data set](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data).
+The data for this project are from the Center for Disease Control's National Center for Health Statistics, specifically the National Vital Statistics System. The official title is "Drug overdise death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018." The data can be found here: [data set](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data).
 
 ### Research Question
-How do race, ethnicity, and gender contribute to variations in opioid-related mortalities?
+How do race, ethnicity, and sex contribute to variations in opioid-related mortalities?
 
 ### Models and Visualizations 
 Given the format of the data we largely use bar graphs. On the x-axis for these graphs are either year or opioid type. Along the Y-axis is always the estimated rate of overdose. This allows us to see the variation of mortality over time and opioid type. Bar graphs also allow us to show the differences between certain demographic groups, like race, ethnicity, and sex which are relevant to our inquiry. 
@@ -54,7 +54,7 @@ We hope do do more exploration, focusing on cultural meanings and influences for
 
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
-- [RMarkdown Notebook]()
+- [RMarkdown Notebook HTML File]()
 
 ## Contact
 |Name     |  Slack Handle   | 

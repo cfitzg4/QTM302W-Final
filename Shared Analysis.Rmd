@@ -275,10 +275,10 @@ year_Race
 
 type_RE <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Race_Ethnicity)) +
   geom_bar(stat = "identity", position = "dodge",na.rm = TRUE) +
-  labs(title = "Overdose Estimates by Drug Type and Race/Sex Identity", 
+  labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity", 
        x = "Drug Type", 
        y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Sex Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0,20)
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0,20)
 
 type_RE
 

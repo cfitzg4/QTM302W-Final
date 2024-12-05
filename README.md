@@ -1,5 +1,5 @@
 # Unequal Burden: Race, Ethnicity, and Sex in the Opioid Epidemic
-### A project by Courtney Fitzgerald and Martinez Jean Claude, completed as a final assignment for Dr. Greg Palermo's Technical Writing course at Emory University for the Fall 2024 semester
+### A repository crafted by Courtney Fitzgerald and Martinez Jean Claude, completed as a final project for Dr. Greg Palermo's Technical Writing course at Emory University for the Fall 2024 semester
 
 ## Outline
   - Project Objectives

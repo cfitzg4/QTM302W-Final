@@ -11,8 +11,8 @@
     - Challenges
     - Future Directions 
   - Instructions to Get Started
-    - RMarkdown Notebook
     - Slides
+    - RMarkdown Notebook
   - Contact Info
     
 ## Project Objectives

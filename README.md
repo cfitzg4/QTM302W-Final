@@ -35,6 +35,8 @@ To complete this project, we rely upon RStudio, specifically RMarkdown, to code 
 ### The Data
 The data for this project are from the Center for Disease Control's National Center for Health Statistics, specifically the National Vital Statistics System. The official title is "Drug overdise death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018." The data can be found here: [data set](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data).
 
+### Project Rationale (more effective title) - Describe generally what the literature is discussing and provide the specific articles as citations/links
+
 ### Research Question
 How do race, ethnicity, and sex contribute to variations in opioid-related mortalities?
 
@@ -47,14 +49,21 @@ The formatting of the data itself proved to be troublesome. While we did manage 
 ### Future Directions 
 We hope do do more exploration, focusing on cultural meanings and influences for certain enthoracial and sex groups. For example, access to medical care, which has been found to vary among different racial/ethnic groups could be contributing to variation in mortality. This is because opioid abuse often begins from prescribed usage per a medical professional. However, given that our data is from death certificates it is extremely difficult to ascertain how an individual ended up dying, as we can only see what drug is responsible for their death.  
 
-## Getting Started 
+## Folder Structure and Nesting 
+
+## Getting Started ()
 1. Clone this repository
-2. Download raw data [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/drug_data.csv)
-3. Data cleaning and processing [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)
+2. *Download raw data [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/drug_data.csv)*
+3. *Data cleaning and processing [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)*
+4. Open up the notebook - denote file paths and changes needed to successfully run
+5. Install necessary packages with renv (potentially link to renv resources)
+6. Run notebook, but pay attention to certain materials
 
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [RMarkdown Notebook RMD File](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)
+### Relevant Literature 
+- 
 
 ## Contact
 |Name     |  Slack Handle   | 

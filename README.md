@@ -11,7 +11,7 @@
     - Challenges
     - Future Directions 
   - Instructions to Get Started
-  - Directory Pathway
+  - File Directory
   - Our Materials 
     - Project Slides
     - RMarkdown Notebook
@@ -67,7 +67,7 @@ We hope do do more exploration, focusing on cultural meanings and influences for
 5. All of the necessary files and packages should be within the renv file, which should be visible in the output pane
 6. Run the notebook, and make any adjustments to cater to specific inquiry as needed
 
-## Directory Pathway
+## File Directory
 ```Bash
 Main Branch 
 ├── RStudio

@@ -38,7 +38,6 @@ The data for this project are from the Center for Disease Control's National Cen
 ### Project Rationale
 This project was a culmination of observed scholarly works examining topics relating to opioid trends, whether more epidemiological or cultural. From these articles we gathered that there were differences medical care, whether it be the prescribing of medication for pain management, or the treatment of acute overdose [Singh et al. 2022](). Namely, compared to white patients, Black patients were found to be less likely to reveive a pain specialist referral, which could be contributing to variations in opioid related mortalities [Hausman et al. 2013](). Nonwhite patients were more likely to be prescribed nonopioid analgesia, or interventions without opioids, compared to white patients [Pletcher et al. 2008](). Another relevant trend, a majority of prescription opioids are prescribed to women[Silver and Hurr 2022]() Drugs prescribed for chronic pain management, often natural or semisynthetic opioids, can be what triggers opioid abuse for people. To that end, scholars have established a narrative that contextualize for increases in mortality caused by specific opioid. In this narrative, individuals begin with prescription opioids, like oxycodone and morphone, developing opioid use disorder, and then moving on to other opioids like heroin and fentanyl[Hoopsick et al. 2021](). Although we primarily focus on race, ethnicity, and sex, we will also consider the influence of drug type on mortality given the relevance past researchers have attributed to this variable. 
 
-- Describe generally what the literature is discussing and provide the specific articles as citations/links
 
 ### Research Question
 How do race, ethnicity, and sex contribute to variations in opioid-related mortalities?
@@ -52,22 +51,19 @@ The formatting of the data itself proved to be troublesome. While we did manage 
 ### Future Directions 
 We hope do do more exploration, focusing on cultural meanings and influences for certain enthoracial and sex groups. For example, access to medical care, which has been found to vary among different racial/ethnic groups could be contributing to variation in mortality. This is because opioid abuse often begins from prescribed usage per a medical professional. However, given that our data is from death certificates it is extremely difficult to ascertain how an individual ended up dying, as we can only see what drug is responsible for their death.  
 
-## Folder Structure and Nesting 
 
 ## Getting Started ()
 1. Clone this repository
-2. Open up the notebook - should the repository be successfully cloned, all of the necessarily files and packages will be available
-4. 
-6. Install necessary packages with renv (potentially link to renv resources)
-7. Run notebook, but pay attention to certain materials
-
+2. Open up the RMD file as an R Mardown file in RStudio
+3. Ensure any pathways and working directories are set appropriately
+4. Install all of the required packages from the renv file
+5. Run the notebook, and make any adjustments to cater to specific inquiry as needed
 
 
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [RMarkdown Notebook RMD File](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)
-### Relevant Literature 
-- 
+
 
 ## Contact
 |Name     |  Slack Handle   | 

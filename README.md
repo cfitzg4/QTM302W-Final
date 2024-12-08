@@ -59,10 +59,28 @@ We hope do do more exploration, focusing on cultural meanings and influences for
 5. Install all of the required packages from the renv file
 6. Run the notebook, and make any adjustments to cater to specific inquiry as needed
 
-## Pathway to the data
-|
-|_ _
-
+## Directory
+└── Main Pathway /
+    └── RStudio/
+        ├── QTM 302W Project.Rproj
+        ├── Shared-Analysis.Rmd
+        ├── Shared-Analysis.html
+        └── renv/
+            ├── .DS_Store
+            ├── .gitignore
+            ├── activate.R
+            ├── renv.lock
+            ├── settings.json
+            ├── Miscellaneous/
+            │   ├── .DS_Store
+            │   ├── .Rprofile
+            │   ├── .gitattributes
+            │   └── .gitignore
+            └── data/
+                ├── .DS_Store
+                ├── DEMO_L.XPT
+                ├── drug_data.csv
+                └── pc.csv
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [RMarkdown Notebook RMD File](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)

@@ -11,6 +11,7 @@
     - Challenges
     - Future Directions 
   - Instructions to Get Started
+  - Directory Pathway
   - Our Materials 
     - Project Slides
     - RMarkdown Notebook
@@ -54,14 +55,14 @@ The formatting of the data itself proved to be troublesome. While we did manage 
 We hope do do more exploration, focusing on cultural meanings and influences for certain enthoracial and sex groups. For example, access to medical care, which has been found to vary among different racial/ethnic groups could be contributing to variation in mortality. This is because opioid abuse often begins from prescribed usage per a medical professional. However, given that our data is from death certificates it is extremely difficult to ascertain how an individual ended up dying, as we can only see what drug is responsible for their death.  
 
 
-## Getting Started ()
+## Getting Started
 1. Clone this repository
 2. Open up the RMD file as an R Mardown file in RStudio and run the "R Set Up" section of code - these can be foud in the RStudio Folder
 4. Ensure that the pathways and working directories are set appropriately, the "renv::snapshot()" should show where the relevent packages and data files were downloaded. 
-5. All of the necessary files and packages should be within the renv file, which should be visible in the files
+5. All of the necessary files and packages should be within the renv file, which should be visible in the output pane
 6. Run the notebook, and make any adjustments to cater to specific inquiry as needed
 
-## Directory
+## Directory Pathway
 ```Bash
 Main Pathway 
 ├── RStudio

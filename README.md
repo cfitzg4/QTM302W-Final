@@ -35,7 +35,10 @@ To complete this project, we rely upon RStudio, specifically RMarkdown, to code 
 ### The Data
 The data for this project are from the Center for Disease Control's National Center for Health Statistics, specifically the National Vital Statistics System. The official title is "Drug overdise death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018." The data can be found here: [data set](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data).
 
-### Project Rationale (more effective title) - Describe generally what the literature is discussing and provide the specific articles as citations/links
+### Project Rationale
+This project was a culmination of observed scholarly works examining topics relating to opioid trends, whether more epidemiological or cultural. From these articles we gathered that there were differences medical care, whether it be the prescribing of medication for pain management, or the treatment of acute overdose [Singh et al. 2022](). Namely, compared to white patients, Black patients were found to be less likely to reveive a pain specialist referral, which could be contributing to variations in opioid related mortalities [Hausman et al. 2013](). Nonwhite patients were more likely to be prescribed nonopioid analgesia, or interventions without opioids, compared to white patients [Pletcher et al. 2008](). Another relevant trend, a majority of prescription opioids are prescribed to women[Silver and Hurr 2022]() Drugs prescribed for chronic pain management, often natural or semisynthetic opioids, can be what triggers opioid abuse for people. To that end, scholars have established a narrative that contextualize for increases in mortality caused by specific opioid. In this narrative, individuals begin with prescription opioids, like oxycodone and morphone, developing opioid use disorder, and then moving on to other opioids like heroin and fentanyl[Hoopsick et al. 2021](). Although we primarily focus on race, ethnicity, and sex, we will also consider the influence of drug type on mortality given the relevance past researchers have attributed to this variable. 
+
+- Describe generally what the literature is discussing and provide the specific articles as citations/links
 
 ### Research Question
 How do race, ethnicity, and sex contribute to variations in opioid-related mortalities?
@@ -53,11 +56,10 @@ We hope do do more exploration, focusing on cultural meanings and influences for
 
 ## Getting Started ()
 1. Clone this repository
-2. *Download raw data [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/drug_data.csv)*
-3. *Data cleaning and processing [here](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)*
-4. Open up the notebook - denote file paths and changes needed to successfully run
-5. Install necessary packages with renv (potentially link to renv resources)
-6. Run notebook, but pay attention to certain materials
+2. Open up the notebook - should the repository be successfully cloned, all of the necessarily files and packages will be available
+4. 
+6. Install necessary packages with renv (potentially link to renv resources)
+7. Run notebook, but pay attention to certain materials
 
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)

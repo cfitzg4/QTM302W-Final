@@ -54,11 +54,14 @@ We hope do do more exploration, focusing on cultural meanings and influences for
 
 ## Getting Started ()
 1. Clone this repository
-2. Open up the RMD file as an R Mardown file in RStudio
-3. Ensure any pathways and working directories are set appropriately
-4. Install all of the required packages from the renv file
-5. Run the notebook, and make any adjustments to cater to specific inquiry as needed
+2. Open up the RMD file as an R Mardown file in RStudio and run the "R Set Up" section of code
+4. Ensure that the pathways and working directories are set appropriately, the "renv::snapshot()" should show where the relevent packages and data files were downloaded
+5. Install all of the required packages from the renv file
+6. Run the notebook, and make any adjustments to cater to specific inquiry as needed
 
+## Pathway to the data
+|
+|_ _
 
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)

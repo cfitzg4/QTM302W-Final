@@ -61,6 +61,8 @@ We hope do do more exploration, focusing on cultural meanings and influences for
 6. Install necessary packages with renv (potentially link to renv resources)
 7. Run notebook, but pay attention to certain materials
 
+
+
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [RMarkdown Notebook RMD File](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)

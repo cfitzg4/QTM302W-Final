@@ -51,7 +51,7 @@ Ethnicity | Hispanic non-specified race or Non-Hispanic
 Race_Ethnicity | NH-Black or NH-White or NH-Native American or NH-AAPI or Hispanic non-specified race     
 Drug Type | Natural/Semisynthetic Opioid or Methadone or Heroin or Synthetic Opioid   
 Year | 1999 - 2018   
-Estimate | Rate of Overdose Deaths per 100,000     
+Estimate | Rate of Overdose Deaths per 100,000 people   
 
 #### Data Limitations
 
@@ -75,21 +75,26 @@ _It is important to note that these data are taken from death certificates, but 
 
 #### Subsetting the Data
 
-These data were organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called "STUB_LABEL". 
+These data were organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called **"STUB_LABEL"**. 
 
 We must create another variable called **"STUB_NAME"** and the corresponding numerical variables **"STUB_LABEL_NUM"** and **"STUB_NAME_NUM"** to relabel the required variables and subset them accordingly for our analysis. 
 
     - Each "STUB_NAME_NUM" number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the "Sex and race and Hispanic origin" level of the "STUB_NAME" variable which corresponds to 5 in "STUB_NAME_NUM."
-    -A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
+    
+    -A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. 
+    
+    The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
 
 
-***For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity.***
+For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity.
 
-# Methods
+## Methods
 
-##Loading in the Data and Packages
+#### Loading in the Data and Packages
 
-#### In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups. We will also load in the data  
+In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups.
+
+First we must load the data in the proper format and get a **grasp of the distribution for variables of interest**. We must also load in the appropriate packages to clean and analyze the data like, *tidyverse* and *ggplot*.
 
 ```{r setup}
 
@@ -102,26 +107,25 @@ drug <- read_csv("drug_data.csv", show_col_types = F)
 ```
 
 
-# Findings/Discussion
+#### Examining and Cleaning the Data
 
-# Conclusion 
+We identified how each drug overdose type is categorized so that we can properly relabel it. This allow us to filter accordingly, to illustrate ***how the death rate estimates vary by racial/gender groups based on the type of drug causing the overdose***. Ultimate showing us its impact.
 
-##
+```{r}
+table(drug$PANEL_NUM, drug$PANEL)
+```
 
-#### First we must load the data in the proper format and get a grasp of the distribution for variables of interest. We must also load in the appropriate packages to clean and analyze the data like, tidyverse and ggplot. 
-
-## Examining and Cleaning the Data
-
-#### In order to evaluate how to best analyze the data we must familiarize ourselves with the variables and how these variables are oriented. This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 residents  for group listed. We first relabel the type of drug overdose for clarity, which relies upon the existing "PANEL" and "PANEL_NUM" variables. By producing a table with these two variables we can see which label and number have observations, thereby illuminating which labels to apply and where. Then we subset the data to focus on the influence of race and sex on drug overdose. Demographic data, like race and gender are listed under the variable "STUB_LABEL_NUM" so we will accordingly disaggregate it and rename it to make the data more readable and optimized for our statistical tests. We ultimately end up with 5 variables of interest. "ESTIMATE" provides the average rate of deaths per 100,000 people. "Race" and "Sex" shows us the racial identity and sex classification provided on the death certificate. "YEAR" notes the year in which the deaths were registered. "Responsible_Drug" tells us the drug responsible for the death measured by the death certificate. 
+**Number** | **Description**  
+--- | ---  
+0 | all drug overdose deaths regardless of drug type 
+1 | drug overdose deaths from any opioids
+2 | drug overdose death from synthetic opioids
+3 | drug overdose deaths from methadone
+4 | drug overdose deaths from synthetic opioids excluding methadone
+5 | drug overdose deaths from heroin
 
 
 ```{r}
-
-##Our first step is to identify how each drug overdose type is categorized so that we can properly relabel it.  
-table(drug$PANEL_NUM, drug$PANEL)
-
-## This tells us that 0 represents all drug overdose deaths regardless of drug type, 1 represents drug overdose deaths from any opioid, 2 represents any drug overdose death from synthetic opioids, 3 represents drug overdose deaths from methadone, 4 represents drug overdose deaths from sythentic opioids besides methadone, and 5 represents drug overdose deaths from heroin, allowing us to filter accordingly to impact if the death rate estimates vary by racial/gender groups based on the type of drug causing the overdose. 
-
 drug_type <- drug %>% 
   rename(Responsible_Drug = "PANEL_NUM") %>% 
   mutate(
@@ -135,26 +139,43 @@ drug_type <- drug %>%
       TRUE ~ "Unknown" 
      ))
 
-##We complete the factor function here to maintain the order of the drug levels in future visualizations. 
+## We complete the factor function here to maintain the order of the drug levels in future visualizations. 
 
-drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All Drug Types", "Any Opioid", "Natural/Semisynthetic Opioid", "Methadone", "Synthetic Opioid", "Heroin"))
+ drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All Drug Types", "Any Opioid", "Natural/Semisynthetic Opioid", "Methadone", "Synthetic Opioid", "Heroin"))
+```
 
-##We then produced tables to clarify the required demographic data. Specifically, we are looking for what number is populated by observations. This information allows us to then subset the data from the larger data set that are organized by race and sex. 
+To clarify the required demographic data: We produced tables and specifically looked for what number is populated by observations which is useful in subsetting the data from the larger data set that is organized by race and sex.
 
+```{r}
 ##This table tells us which single digit number represents the racial/sex level of the STUB_NAME variable. 
-table(drug$STUB_NAME_NUM, drug$STUB_NAME)
 
-## 4 is the number that corresponds to Race and Sex, so we filtered on this to see which decimal number corresponds to each racial/gender group. 
+table(drug$STUB_NAME_NUM, drug$STUB_NAME) ## 4 is the number that corresponds to Race and Sex, 
+
+## We then filtered on this to see which decimal number corresponds to each racial/gender group. 
 drug_exam <- drug_type %>% 
   filter(STUB_NAME_NUM == 4)
+```
 
+With a similar principle to the previous table, we produced this one to see which **specific number** corresponds to a **specific racial/sex pairing**, like Black male, for example. We measure this correspondence by whether or not a number has observations under a specific label. If this number has observations, this indicates that it represents the given racial/sex pairing. 
 
-## With a similar principle to the previous table, we produced this one to see which specific number corresponds to a specific racial/sex pairing, like Black male, for example. We measure this correspondence by whether or not a number has observations under a specific label. If this number has observations, this indicates that it represents the given racial/sex pairing. 
+```{r}
 table(drug_exam$STUB_LABEL_NUM, drug_exam$STUB_LABEL)
+```
 
-## From this table we can see that 4.1 is White Males, 4.2 is Black Males, 4.3 is Native American Males, 4.4 is Asian Males, 4.5 is White Females, 4.6 is Black Females, 4.7 is Native American Females, and 4.8 is Asian Female. We then create a new variable that explicitly states these race/sex pairings and produce a subset that focuses on this new variable. 
+**Number** | **Description**  
+--- | ---  
+4.1 | White males
+4.2 | Black Males
+4.3 | Native American Males
+4.4 | Asian Males
+4.5 | White Females
+4.6 | Black Females
+4.7 | Native American Females
+4.8 | Asian Female
 
-## We make another subset that disaggregates race and sex so that we can perform a 2-way ANOVA to see if these two variables are statistically significant predictors for drug overdose mortality. 
+We make **another subset** that **disaggregates race and sex** so that we can **perform a 2-way ANOVA** to see if these two variables are statistically significant predictors for drug overdose mortality.
+
+```{r}
 drug_RES <- drug_type %>% 
   filter(STUB_NAME_NUM == 5) %>%
   rename(Race_Ethnicity = "STUB_LABEL_NUM") %>% 
@@ -203,9 +224,18 @@ drug_Fem <- drug_RES %>%
 
 drug_Male <- drug_RES %>% 
   filter(Sex == "Male")
-
-  
 ```
+
+**Conclusion:** After subsetting and cleaning the original dataset, we ended up with 5 variables of of interest.  
+1. *"ESTIMATE"* provides the average rate of deaths per 100,000 people.
+
+2. *"Race"* and *"Sex"* show us the racial identity and sex classification provided on the death certificate.
+
+3. *"YEAR"* notes the year in which the deaths were registered.
+
+4. *"Responsible_Drug"* tells us the drug responsible for the death as measured by the death certificate.
+
+
 ## Visualizing the Distribution
 
 ### All Racial and Sex Identity Groups, for all Drug Overdose Types, from 1999 - 2018

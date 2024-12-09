@@ -5,12 +5,6 @@ date: "2024-10-22"
 output: html_document
 ---
 ## Introduction
-```{r}
-renv::init()
-renv::install("dplyr", "ggplot2", "tidyverse", "gridExtra")
-renv::snapshot()
-drug <- read_csv("drug_data.csv", show_col_types = F)
-```
 
 #### Background
 
@@ -85,21 +79,19 @@ We must create another variable called **"STUB_NAME"** and the corresponding num
 
 ***For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity.***
 
-# Methods
+## Methods
 
-##Loading in the Data and Packages
+####Loading in the Data and Packages
 
-#### In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups. We will also load in the data  
+In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups. We will also load in the data  
 
 ```{r setup}
-
-
-
+# Package used 
 library(tidyverse)
-
 library(ggplot2)
-
 library(gridExtra)
+
+drug <- read_csv("Renv/Data/drug_data.csv", show_col_types = F)
 
 ```
 

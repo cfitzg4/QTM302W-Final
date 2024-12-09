@@ -5,6 +5,12 @@ date: "2024-10-22"
 output: html_document
 ---
 ## Introduction
+```{r}
+renv::init()
+renv::install("dplyr", "ggplot2", "tidyverse", "gridExtra")
+renv::snapshot()
+drug <- read_csv("drug_data.csv", show_col_types = F)
+```
 
 #### Background
 
@@ -86,16 +92,13 @@ We must create another variable called **"STUB_NAME"** and the corresponding num
 #### In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups. We will also load in the data  
 
 ```{r setup}
-renv::init()
-renv::install("dplyr", "ggplot2", "tidyverse", "gridExtra")
-drug <- read_csv("drug_data.csv", show_col_types = F)
-install.packages("renv")
-renv::snapshot()
 
-library(dplyr)
-library(ggplot2)
 library(tidyverse)
+
+library(ggplot2)
+
 library(gridExtra)
+
 ```
 
 
@@ -103,6 +106,7 @@ library(gridExtra)
 
 # Conclusion 
 
+##
 
 #### First we must load the data in the proper format and get a grasp of the distribution for variables of interest. We must also load in the appropriate packages to clean and analyze the data like, tidyverse and ggplot. 
 

@@ -88,7 +88,7 @@ We must use another variable called **"STUB_NAME"** and the corresponding numeri
 
 In order to evaluate how to best analyze the data we must familiarize ourselves with the variables and how they're oriented.
 
-This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 residents for group listed.
+This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 people for each group listed.
 
 
 1. **Relabel the type of drug overdose for clarity**  
@@ -141,7 +141,7 @@ table(drug$PANEL_NUM, drug$PANEL)
 
 
 ```{r}
-# Filtering to see the impact of the death rate estimate variation by racial/gender groups based on type of drug causing overdose
+# Filtering to see the impact of the death rate estimate variation by racial/ethnic and sex groups based on type of drug causing overdose
 
 drug_type <- drug %>% 
   rename(Responsible_Drug = "PANEL_NUM") %>% 
@@ -171,9 +171,9 @@ drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All 
 
 table(drug$STUB_NAME_NUM, drug$STUB_NAME)
 
-# 4 is the number that corresponds to Race and Sex, so we filtered on this to see which decimal number corresponds to each racial/gender group. 
+# 5 is the number that corresponds to Race, Sex, and Ethnicity so we filtered on this to see which decimal number corresponds to each racial/gender group. 
 drug_exam <- drug_type %>% 
-  filter(STUB_NAME_NUM == 4)
+  filter(STUB_NAME_NUM == 5)
 
 # Produce a table to see which number corresponds to a specific racial/sex pairing (i.e Black Male)
 table(drug_exam$STUB_LABEL_NUM, drug_exam$STUB_LABEL)
@@ -182,14 +182,16 @@ table(drug_exam$STUB_LABEL_NUM, drug_exam$STUB_LABEL)
 
 **Number** | **Description**  
 --- | --- 
-4.1 | White Males
-4.2 | Black Males 
-4.3 | Native American Males  
-4.4 | Asian Males     
-4.5 | White Females   
-4.6 | Black Females  
-4.7 | Native American Females
-4.8 | Asian Females
+5.1 | Hispanic Males, Unspecified Race
+5.2 | Non-Hispanic White Males
+5.3 | Non-Hispanic Black Males 
+5.4 | Non-Hispanic Native American Males  
+5.5 | Non-Hispanic Asian American Pacific Islander Males     
+5.6 | Hispanic Females, Unspecified Race
+5.7 | Non-Hispanic White Females 
+5.8 | Non-Hispanic Black Females 
+5.9 | Non-Hispanic Native American Females
+5.91| Non-Hispanic Asian American Pacific Islander Females
 
 This allows for the **creation of a new variable** that explicitly states that states these race/sex pairings and produce a subset that focus on this new variable.
 
@@ -277,9 +279,9 @@ grid.arrange(overall_plot_F, overall_plot_M)
 ```
 
 
-**Summary:** The distribution of the data shows that compared to females, ***males experience almost an exponential increase in deaths due to drug overdose spiking around the late 2000s.***
+**Summary:** The distribution of the data shows that compared to females, ***males experience an almost exponential increase in deaths due to drug overdose spiking around the late 2000s.***
 
-**Importance:** These data tell us a lot regarding the different observations witnessed. The distribution provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
+**Importance:** These data tell us a lot regarding the different observations witnessed. The distributions provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
 
 $~$
 
@@ -304,7 +306,7 @@ $~$
 
 ##### ***Distribution of Overdose Estimates by Drug type and Race/Ethnic Identity ***
 
-We wanted to see the **_distribution of the different drug type overdose among the different race and genders to see which type is more prevalent_**.
+We wanted to see the **_distribution of the different responsible drugs responsible for the overdose among the different race and genders to see which type of drug is more prevalent_**.
 
 ```{r, echo= FALSE}
 type_RE <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Race_Ethnicity)) +
@@ -317,9 +319,9 @@ type_RE <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill
 type_RE
 ```
 
-**Summary:** The graph shows that among the drug types, **synthetic opioids appear to be one of the leading causes of death** by drug overdose. Specifically for Non-Hispanic White and Non-Hispanic black as they have a high amount of death compared to other Race/Ethnic identities.
+**Summary:** The graph shows that among the drug types, **synthetic opioids appear to be one of the leading causes of death** by drug overdose. Specifically for Non-Hispanic White and Non-Hispanic black as they have a higher mortality estimate compared to other Race/Ethnic identities.
 
-We can also see that **methadone has the lowest rates for every group** when averaging rates from 1999-2018.This is likely because methadone is typically **given out as clinics as way to mitigate withdrawal symptoms** for drug users trying to **decrease or eliminate their opioid consumption**. Since clinics typically give this drug out, it is in a more controlled environment with a measure dose which is why the rates are lower
+We can also see that **methadone has the lowest rates for every group** when averaging rates from 1999-2018.This is likely because methadone is typically **given out at rehabilitation clinics as way to mitigate withdrawal symptoms** for drug users trying to **decrease or eliminate their opioid consumption**. Since clinics typically dispense this drug, it is in a more controlled environment with a measure dose which is likely why we see lower rates.
 
 $~$
 
@@ -346,15 +348,15 @@ type_REM
 ```
 
 
-**Summary**: The first two categories have the lowest estimates likely because they are more inclusive/broader categories in general. However, the **synthetic opioid is the highest out of the rest of the categories**. Fentanyl is a highly potent and potentially lethal drug that is classified as a synthetic opioid. Although we cannot conclude based upon the language used in this data set, **fentanyl is likely the reason why this categories’ estimates are higher**. 
+**Summary**: The **synthetic opioid has the highest estimate out of all of the categories**.Fentanyl is a highly potent and potentially lethal drug that is classified as a synthetic opioid. Although we cannot conclude based upon the language used in this data set, **fentanyl is likely the reason why this categories’ estimates are higher**. It is important to note that fentanyl is 50 times more potent than heroin and 100 times more potent than morphine, meaning it is more lethal in smaller quantities. 
 
-Another important note is that this is the only category where **Black males have a higher estimate than White men**, which may indicate a _need for further inquiry_. Among the rest of the drug type categories, the same trends by race/sex pairing are generally seen.
+Another important note is that this is the only category where **Black males have a higher estimate than White men**, which may indicate a _need for further inquiry_. Among the rest of the drug type categories, the same trends by race/sex pairing are generally present.
 
 $~$
 
 ## Viewing Central Tendency of the Outcome Variable 
 
-While understanding the trends in our dataset, it is important to **understand the outcome variable *ESTIMATE*.** Specifically in regards to our aggregated measures for all race/sex pairings across time, and **provided a "standard" of sorts when comparing mean, median, or standard deviation for a specific year, race, and/or sex group**
+While understanding the trends in our data set, it is important to **understand the outcome variable *ESTIMATE*.** Specifically in regards to our aggregated measures for all race/sex pairings across time, and **provided a "standard" of sorts when comparing mean, median, or standard deviation for a specific year, race, and/or sex group**
 
 ```{r}
 mean_estimate <- mean(drug_RES$ESTIMATE, na.rm = TRUE) #4.2
@@ -363,7 +365,7 @@ std_estimate <- sd(drug_RES$ESTIMATE, na.rm = TRUE) #5.19
 ```
 
 
-Focused on the mean of the different races and gender to see the mean of drug overdose death rate among the different groups as well as the standard deviation
+Focusing on the respective means of the different races and gender to see the mean of drug overdose death rate among the different groups as well as the standard deviation
 
 ```{r, echo=FALSE}
 meanrace <- drug_RES %>%
@@ -379,7 +381,7 @@ stdrace<- drug_RES %>%
 stdrace
 ```
 
-**White Males estimated death rate is nearly ten times that of Asian women**, showing the range possible based on racial identity and sex. Like previously mentioned, White Males and Black Males have the highest standard deviation of estimates, with 7.33 and 6.71, respectively. Across racial groups, we see that **females consistently have lower average estimated death rates and standard deviations which point to the influence of sex**. 
+**White Males estimated death rate is nearly ten times that of Asian women**, showing the range possible based on racial identity and sex. Like previously mentioned, non-Hispanic White Males and non-Hispanic Black Males have the highest standard deviation of estimates, with 7.33 and 6.71, respectively. Across racial groups, we see that **females consistently have lower average estimated death rates and standard deviations which point to the influence of sex**. 
 
 $~$
 
@@ -420,8 +422,6 @@ $~$
 
 ##### Drug Type Mean and Standard Deviation by Year
 
-We excluded the two more general categories of "All Drug Type" and "Any Opioid" here to focus on more narrowly defined drug type categories. 
-
 ```{r, echo=FALSE}
 mean_year_type <- drug_RES %>% 
   group_by(YEAR, Responsible_Drug) %>% 
@@ -455,9 +455,9 @@ During the earlier years, *methadone and synthetic opioids "trade" places with w
 #### Initial Test
  A ***two-way ANOVA conducted between Race/Ethnicity and Sex in relation*** to the outcome of drug overdose. 
  
- The **H0 (null hypothesis)** suggest that there **is no difference of the means between the 2 groups : u1=u2=u3. **
+ The **H0 (null hypothesis)** suggest that there **is no difference of the means between the 2 or more groups : u1=u2=u3. **
  
- While the **Ha (alternative hypothesis)** suggest that there **is a difference between at least one of the means of the 2 groups: u1 =/ u2 =/u3. **
+ While the **Ha (alternative hypothesis)** suggest that there **is a difference between at least one of the means of the groups: u1 =/ u2 =/u3. **
  
 ```{r, echo = T}
 ## A Two Way ANOVA with Race and Sex as the categorical variables of analysis

@@ -272,23 +272,18 @@ overall_plot_F <- ggplot(drug_Fem, aes(x = factor(YEAR), y = ESTIMATE, fill = Ra
        y = "Estimated Deaths per 100,000") +
   theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") +  theme(plot.title = element_text(hjust = 0.5))+ ylim(0,20)
 
-overall_plot_F
 grid.arrange(overall_plot_F, overall_plot_M)
 ```
 
 
-**Conclusion:** These data tell us a lot regarding the different observations witnessed. It is important to look at the distribution because it provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
+**Conclusion:** The distribution of the data shows that compared to females, ***males experience almost an exponential increase in deaths due to drug overdose spiking around the late 2000s.***
 
-```{r, echo = T}
-
-## To visualize our data, we first looked at the distribution of Race_Sex by the estimate, to see which race and gender had the highest rate of drug overdose.
+**Importance:** These data tell us a lot regarding the different observations witnessed. The distribution provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
 
 
-## The median lines of each box plot imply that among all drug types and across the 20 year period of the data, Native American Males and White Males have the highest rates of death from overdose. It appears that White Males and Black Males have the highest variation as it relates to drug overdoses. We can verify these findings in the next section where we analyze the central tendencies of the data. 
+##### ***Distribution of Sex By Estimate ***
 
-
-## The next variable we looked at is the YEAR to showcase the distribution of how the number of overdose has changed over time. Instead of focusing on both the race and sex, we found it would be beneficial to just focus sex as the graph might be over saturated.
-
+```{r, echo = F}
 year_Sex <- ggplot(drug_RES, aes(x = factor(YEAR), y = ESTIMATE, fill = Sex)) +
   geom_boxplot(na.rm = TRUE) +
   labs(title = "Distribution of Overdose Estimates by Sex and Year", 
@@ -297,29 +292,18 @@ year_Sex <- ggplot(drug_RES, aes(x = factor(YEAR), y = ESTIMATE, fill = Sex)) +
   theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + theme(plot.title = element_text(hjust = 0.5))
 
 year_Sex
+```
 
-year_Ethnicity <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Ethnicity)) +
-  geom_boxplot(na.rm = TRUE) +
-  labs(title = "Distribution of Overdose Estimates by Ethnicity and Year", 
-       x = "Year", 
-       y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + theme(plot.title = element_text(hjust = 0.5))
+**Conclusion:** The graph shows that a common trend for both female and male is that ***as the year increased the number of drug overdose increased.*** While it was a subtle increase for females, the males saw a larger rise in drug overdose deaths. 
 
-year_Ethnicity
-
-year_Race <- ggplot(drug_RES, aes(x = factor(YEAR), y = ESTIMATE, color = Race_Ethnicity)) +
-  labs(title = "Distribution of Overdose Estimates by Race and Year", 
-       x = "Year", 
-       y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + theme(plot.title = element_text(hjust = 0.5)) +   geom_bar(stat = "identity", position = "dodge")
-
-year_Race
-
-## The graph shows that a common trend for both female and male is that as the year increased the number of drug overdose increased. While it was a subtle increase for females, the males saw a larger rise in drug overdose deaths. The differences in the rate of increase are visible from the continued distance in the median bar between females and males as time goes on. Again, we can verify this with additional central tendency measures. 
+The ***differences in the rate of increase are visible from the continued distance in the median bar between females and males as time goes on***. We can verify this with additional central tendency measures. 
 
 
-## Finally, we wanted to see the distribution of the different drug type overdose among the different race and genders to see which type is more prevalent.
+##### ***Distribution of Overdose Estimates by Drug type and Race/Ethnic Identity ***
 
+We wanted to see the **_distribution of the different drug type overdose among the different race and genders to see which type is more prevalent_**.
+
+```{r, echo= FALSE}
 type_RE <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Race_Ethnicity)) +
   geom_bar(stat = "identity", position = "dodge",na.rm = TRUE) +
   labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity", 
@@ -328,32 +312,39 @@ type_RE <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill
   theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0,20)
 
 type_RE
+```
+
+**Conclusion:** The graph shows that among the drug types, **synthetic opioids appear to be one of the leading causes of death** by drug overdose. Specifically for Non-Hispanic White and Non-Hispanic black as they have a high amount of death compared to other Race/Ethnic identities.
+
+We can also see that **methadone has the lowest rates for every group** when averaging rates from 1999-2018.This is likely because methadone is typically **given out as clinics as way to mitigate withdrawal symptoms** for drug users trying to **decrease or eliminate their opioid consumption**. Since clinics typically give this drug out, it is in a more controlled environment with a measure dose which is why the rates are lower
 
 
+##### ***Distribution of Overdose Estimates by Drug type and Race/Ethnic Identity Among Men and Women***
 
+```{r, echo=FALSE}
 type_REF <- ggplot(drug_Fem, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Race_Ethnicity)) +
   geom_bar(stat = "identity", position = "dodge",na.rm = TRUE) +
   labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity (Women)", 
        x = "Drug Type", 
        y = "Estimated Deaths per 100,000") +
   theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0, 20)
+type_REF
+```
 
-
-
+```{r, echo=FALSE}
 type_REM <- ggplot(drug_Male, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill = Race_Ethnicity))+
   geom_bar(stat = "identity", position = "dodge",na.rm = TRUE) +
   labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity (Men)", 
        x = "Drug Type", 
        y = "Estimated Deaths per 100,000") +
   theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0, 20)
-
-type_REF
 type_REM
-
-
 ```
 
-#### From the drug type graph, we can see that methadone has the lowest rates for every group when averaging rates from 1999-2018. This is likely because methadone is typically given out as clinics as way to mitigate withdrawl symptoms for drug users trying to decrease or eliminate their opioid consumption. Since clinics typically give this drug out, it is in a more controlled environment with a measure dose which is why the rates are lower. The first two categories have the highest estimates likely because they are more inclusive/broader categories in general. However, the sythetic opioid is the highest out of the rest of the categories. Fentanyl is a highly potent and potentially lethal drug that is classified as a synthetic opioid. Although we cannot conclude based upon the language used in this data set, fentanyl is likely the reason why this categories' estimates are higher. Another important note is that this is the only category where Black males have a higher estimate than White men, which may indicate a need for further inquiry. Among the rest of the drug type categories, the same trends by race/sex pairing are generally seen. 
+
+**Conclusion**: The first two categories have the lowest estimates likely because they are more inclusive/broader categories in general. However, the **synthetic opioid is the highest out of the rest of the categories**. Fentanyl is a highly potent and potentially lethal drug that is classified as a synthetic opioid. Although we cannot conclude based upon the language used in this data set, **fentanyl is likely the reason why this categories’ estimates are higher**. 
+
+Another important note is that this is the only category where **Black males have a higher estimate than White men**, which may indicate a _need for further inquiry_. Among the rest of the drug type categories, the same trends by race/sex pairing are generally seen.
 
 
 

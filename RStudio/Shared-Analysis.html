@@ -495,43 +495,84 @@ data.</em></p>
 </div>
 <div id="subsetting-the-data" class="section level4">
 <h4>Subsetting the Data</h4>
-<p>These data were organized in a way that required a considerable
-amount of cleaning and subsetting in order to isolate the measures we
-intended to explore. Specifically, the demographic measures do not have
-their own variables, but rather are compiled into one variable, called
-“STUB_LABEL”.</p>
+<p>The data was organized in a way that required a considerable amount
+of cleaning and subsetting in order to isolate the measures we intended
+to explore. Specifically, the demographic measures do not have their own
+variables, but rather are compiled into one variable, called
+<strong>“STUB_LABEL”</strong>.</p>
 <p>We must create another variable called <strong>“STUB_NAME”</strong>
 and the corresponding numerical variables
 <strong>“STUB_LABEL_NUM”</strong> and <strong>“STUB_NAME_NUM”</strong>
 to relabel the required variables and subset them accordingly for our
 analysis.</p>
 <pre><code>- Each &quot;STUB_NAME_NUM&quot; number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the &quot;Sex and race and Hispanic origin&quot; level of the &quot;STUB_NAME&quot; variable which corresponds to 5 in &quot;STUB_NAME_NUM.&quot;
--A similar categorization system exists for specific groups with the &quot;STUB_LABEL&quot; and &quot;STUB_LABEL_NUM&quot; corresponding to &quot;Female: Not Hispanic or Latino: White&quot; and 5.7, respectively. The &quot;STUB_LABEL_NUM&quot; builds upon the &quot;STUB_NAME_NUM&quot; with a decimal number to denote a specific sex, ethnicity, and race. </code></pre>
+
+-A similar categorization system exists for specific groups with the &quot;STUB_LABEL&quot; and &quot;STUB_LABEL_NUM&quot; corresponding to &quot;Female: Not Hispanic or Latino: White&quot; and 5.7, respectively. 
+
+-The &quot;STUB_LABEL_NUM&quot; builds upon the &quot;STUB_NAME_NUM&quot; with a decimal number to denote a specific sex, ethnicity, and race. </code></pre>
 <p><strong><em>For this study we subset the data to exclusively include
 observations with specified sex, race, and ethnicity.</em></strong></p>
 </div>
 </div>
-<div id="methods" class="section level1">
-<h1>Methods</h1>
-<p>##Loading in the Data and Packages</p>
-<div id="in-order-to-answer-our-research-question-we-need-to-load-in-the-data-and-relevant-packages-that-allow-us-to-complete-the-previously-mentioned-subsetting-and-the-statistical-tests-required-to-compare-the-estimated-death-rates-between-certain-groups.-we-will-also-load-in-the-data" class="section level4">
-<h4>In order to answer our research question we need to load in the data
-and relevant packages that allow us to complete the previously mentioned
+<div id="methods" class="section level2">
+<h2>Methods</h2>
+<div id="overview" class="section level4">
+<h4>Overview</h4>
+<p>In order to evaluate how to best analyze the data we must familiarize
+ourselves with the variables and how they’re oriented.</p>
+<p>This data set classifies drug overdose by type, and also takes into
+account estimations for the rate of overdose per 100,000 residents for
+group listed.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Relabel the type of drug overdose for clarity</strong><br />
+This relies upon the existing <strong>“PANEL”</strong> and
+<strong>“PANEL_NUM”</strong> variables.
+<ul>
+<li>We will produce a table with these two variables so we can see which
+number correlates with a specific drug type.</li>
+</ul></li>
+<li><strong>Subset the data to focus on the influence of race and sex on
+drug overdose</strong>
+<ul>
+<li>Race and gender are under <strong>“STUB_LABEL_NUM”</strong>, so we
+will disaggregate it and rename it to make the data more readable and
+optimized for our statistical tests.</li>
+</ul></li>
+<li><strong>End with five variables of interest</strong>
+<ul>
+<li><strong>“ESTIMATE”</strong>: Provides the average rate of deaths per
+100,000 people.<br />
+</li>
+<li><strong>“Race”</strong> and <strong>“Sex”</strong>: Show the racial
+identity and sex classification provided on the death certificate.<br />
+</li>
+<li><strong>“YEAR”</strong>: Notes the year in which the deaths were
+registered.<br />
+</li>
+<li><strong>“Responsible_Drug”</strong>: Identifies the drug responsible
+for the death as noted on the death certificate.</li>
+</ul></li>
+</ol>
+</div>
+<div id="loading-in-the-data-and-packages" class="section level4">
+<h4>Loading in the Data and Packages</h4>
+<p>In order to answer our research question we need to load the data and
+relevant packages that allow us to complete the previously mentioned
 subsetting and the statistical tests required to compare the estimated
-death rates between certain groups. We will also load in the data</h4>
-<pre class="r"><code>library(tidyverse)</code></pre>
+death rates between certain groups.</p>
+<pre class="r"><code># Packages used 
+library(tidyverse)</code></pre>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ## ✔ purrr     1.0.2     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <pre class="r"><code>library(ggplot2)
-
 library(gridExtra)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;gridExtra&#39;
@@ -539,7 +580,141 @@ library(gridExtra)</code></pre>
 ## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     combine</code></pre>
-<pre class="r"><code>drug &lt;- read_csv(&quot;drug_data.csv&quot;, show_col_types = F)</code></pre>
+<pre class="r"><code># Loading the dataset
+drug &lt;- read_csv(&quot;Renv/Data/drug_data.csv&quot;, show_col_types = F)</code></pre>
+</div>
+<div id="examining-and-cleaning-the-data" class="section level4">
+<h4>Examining and Cleaning the Data</h4>
+<p>Identifying how each drug overdoes type is categorized so we can
+relabel it.</p>
+<pre class="r"><code>table(drug$PANEL_NUM, drug$PANEL)</code></pre>
+<pre><code>##    
+##     All drug overdose deaths Drug overdose deaths involving any opioid
+##   0                     1038                                         0
+##   1                        0                                      1038
+##   2                        0                                         0
+##   3                        0                                         0
+##   4                        0                                         0
+##   5                        0                                         0
+##    
+##     Drug overdose deaths involving heroin
+##   0                                     0
+##   1                                     0
+##   2                                     0
+##   3                                     0
+##   4                                     0
+##   5                                  1038
+##    
+##     Drug overdose deaths involving methadone
+##   0                                        0
+##   1                                        0
+##   2                                        0
+##   3                                     1038
+##   4                                        0
+##   5                                        0
+##    
+##     Drug overdose deaths involving natural and semisynthetic opioids
+##   0                                                                0
+##   1                                                                0
+##   2                                                             1038
+##   3                                                                0
+##   4                                                                0
+##   5                                                                0
+##    
+##     Drug overdose deaths involving other synthetic opioids (other than methadone)
+##   0                                                                             0
+##   1                                                                             0
+##   2                                                                             0
+##   3                                                                             0
+##   4                                                                          1038
+##   5                                                                             0</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Number</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>all drug overdose deaths regardless of drug type</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>drug overdose deaths from any opioids</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>any drug overdose death from synthetic opioids</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>drug overdose deaths from methadone</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>drug overdose deaths from synthetic opioids except methadone</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>drug overdose deaths from heroin</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Filtering to see the impact of the death rate estimate variation by racial/gender groups based on type of drug causing overdose
+
+drug_type &lt;- drug %&gt;% 
+  rename(Responsible_Drug = &quot;PANEL_NUM&quot;) %&gt;% 
+  mutate(
+     Responsible_Drug = case_when(
+      Responsible_Drug == 0 ~ &quot;All Drug Types&quot;,
+      Responsible_Drug == 1 ~ &quot;Any Opioid&quot;,
+      Responsible_Drug == 2 ~ &quot;Natural/Semisynthetic Opioid&quot;,
+      Responsible_Drug == 3 ~ &quot;Methadone&quot;,
+      Responsible_Drug == 4 ~ &quot;Synthetic Opioid&quot;,
+      Responsible_Drug == 5 ~ &quot;Heroin&quot;,
+      TRUE ~ &quot;Unknown&quot; 
+     ))
+
+# Factor function to maintain the order of drug levels in visualization
+
+drug_type$Responsible_Drug &lt;- factor(drug_type$Responsible_Drug, levels =c(&quot;All Drug Types&quot;, &quot;Any Opioid&quot;, &quot;Natural/Semisynthetic Opioid&quot;, &quot;Methadone&quot;, &quot;Synthetic Opioid&quot;, &quot;Heroin&quot;))</code></pre>
+<p><strong>Production of tables to clarify the required demographic
+data, looking at the number that is populated by
+observations.</strong></p>
+<p><strong>Next we will subset the data from the larger data set that
+are organized by race and sex</strong></p>
+<pre class="r"><code># Finding with single digit number represents the racial/sex levle of the STUB_NAME variable 
+
+table(drug$STUB_NAME_NUM, drug$STUB_NAME)</code></pre>
+<pre><code>##    
+##      Age  Sex Sex and age Sex and race Sex and race (single race)
+##   0    0    0           0            0                          0
+##   1 1080    0           0            0                          0
+##   2    0  480           0            0                          0
+##   3    0    0        2160            0                          0
+##   4    0    0           0          960                         36
+##   5    0    0           0            0                          0
+##    
+##     Sex and race and Hispanic origin
+##   0                                0
+##   1                                0
+##   2                                0
+##   3                                0
+##   4                                0
+##   5                             1200
+##    
+##     Sex and race and Hispanic origin (single race) Total
+##   0                                              0   240
+##   1                                              0     0
+##   2                                              0     0
+##   3                                              0     0
+##   4                                              0     0
+##   5                                             72     0</code></pre>
+<pre class="r"><code># 4 is the number that corresponds to Race and Sex, so we filtered on this to see which decimal number corresponds to each racial/gender group. 
+drug_exam &lt;- drug_type %&gt;% 
+  filter(STUB_NAME_NUM == 4)</code></pre>
 </div>
 </div>
 <div id="findingsdiscussion" class="section level1">
@@ -556,7 +731,7 @@ appropriate packages to clean and analyze the data like, tidyverse and
 ggplot.</h4>
 </div>
 </div>
-<div id="examining-and-cleaning-the-data" class="section level2">
+<div id="examining-and-cleaning-the-data-1" class="section level2">
 <h2>Examining and Cleaning the Data</h2>
 <div id="in-order-to-evaluate-how-to-best-analyze-the-data-we-must-familiarize-ourselves-with-the-variables-and-how-these-variables-are-oriented.-this-data-set-classifies-drug-overdose-by-type-and-also-takes-into-account-estimations-for-the-rate-of-overdose-per-100000-residents-for-group-listed.-we-first-relabel-the-type-of-drug-overdose-for-clarity-which-relies-upon-the-existing-panel-and-panel_num-variables.-by-producing-a-table-with-these-two-variables-we-can-see-which-label-and-number-have-observations-thereby-illuminating-which-labels-to-apply-and-where.-then-we-subset-the-data-to-focus-on-the-influence-of-race-and-sex-on-drug-overdose.-demographic-data-like-race-and-gender-are-listed-under-the-variable-stub_label_num-so-we-will-accordingly-disaggregate-it-and-rename-it-to-make-the-data-more-readable-and-optimized-for-our-statistical-tests.-we-ultimately-end-up-with-5-variables-of-interest.-estimate-provides-the-average-rate-of-deaths-per-100000-people.-race-and-sex-shows-us-the-racial-identity-and-sex-classification-provided-on-the-death-certificate.-year-notes-the-year-in-which-the-deaths-were-registered.-responsible_drug-tells-us-the-drug-responsible-for-the-death-measured-by-the-death-certificate." class="section level4">
 <h4>In order to evaluate how to best analyze the data we must
@@ -1130,7 +1305,7 @@ m8 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Responsible_Drug + Race_Eth
 
 summary(m1)</code></pre>
 <pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Ethnicity     1    170   170.4    29.9 6.57e-08 ***
+## Ethnicity     1    170   170.4   29.89 6.57e-08 ***
 ## Residuals   632   3602     5.7                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>

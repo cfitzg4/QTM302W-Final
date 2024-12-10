@@ -120,6 +120,7 @@ drug <- read_csv("Renv/Data/drug_data.csv", show_col_types = F)
 
 ```
 
+$~$
 
 #### Examining and Cleaning the Data
 
@@ -245,13 +246,13 @@ drug_Male <- drug_RES %>%
   filter(Sex == "Male")
 ```
 
-
 ## Visualizing the Distribution
 
 #### All Racial and Sex Identity Groups, for all Drug Overdose Types, from 1999 - 2018
 
  We produced this visualization initially to get an **idea of the increase of drug mortality over around 20 years**. This time period is especially relevant as the CDC declares that this time range represents the "[Opioid Epidemic](https://www.cdc.gov/museum/pdf/cdcm-pha-stem-uncovering-the-opioid-epidemic-lesson.pdf)"and many of the drugs identified in this data set are classified as some form of an opioid. This information is also helpful in highlighting the variation in mortality by race/sex pairings.
  
+$~$
 
 ##### ***Plots Comparing Men and Women Across Race/Ethnic Groups***
 
@@ -280,6 +281,7 @@ grid.arrange(overall_plot_F, overall_plot_M)
 
 **Importance:** These data tell us a lot regarding the different observations witnessed. The distribution provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
 
+$~$
 
 ##### ***Distribution of Sex By Estimate ***
 
@@ -298,6 +300,7 @@ year_Sex
 
 The ***differences in the rate of increase are visible from the continued distance in the median bar between females and males as time goes on***. We can verify this with additional central tendency measures. 
 
+$~$
 
 ##### ***Distribution of Overdose Estimates by Drug type and Race/Ethnic Identity ***
 
@@ -318,6 +321,7 @@ type_RE
 
 We can also see that **methadone has the lowest rates for every group** when averaging rates from 1999-2018.This is likely because methadone is typically **given out as clinics as way to mitigate withdrawal symptoms** for drug users trying to **decrease or eliminate their opioid consumption**. Since clinics typically give this drug out, it is in a more controlled environment with a measure dose which is why the rates are lower
 
+$~$
 
 ##### ***Distribution of Overdose Estimates by Drug type and Race/Ethnic Identity Among Men and Women***
 
@@ -327,7 +331,7 @@ type_REF <- ggplot(drug_Fem, aes(x = factor(Responsible_Drug), y = ESTIMATE, fil
   labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity (Women)", 
        x = "Drug Type", 
        y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0, 20)
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0)) + ylim(0, 20)
 type_REF
 ```
 
@@ -337,7 +341,7 @@ type_REM <- ggplot(drug_Male, aes(x = factor(Responsible_Drug), y = ESTIMATE, fi
   labs(title = "Overdose Estimates by Drug Type and Race/Ethnic Identity (Men)", 
        x = "Drug Type", 
        y = "Estimated Deaths per 100,000") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0.5)) + ylim(0, 20)
+  theme_minimal() + theme(axis.text.x = element_text(angle = 90)) + labs(fill = "Race/Ethnic Identity") + theme(plot.title = element_text(hjust = 0)) + ylim(0, 20)
 type_REM
 ```
 
@@ -346,23 +350,22 @@ type_REM
 
 Another important note is that this is the only category where **Black males have a higher estimate than White men**, which may indicate a _need for further inquiry_. Among the rest of the drug type categories, the same trends by race/sex pairing are generally seen.
 
-
+$~$
 
 ## Viewing Central Tendency of the Outcome Variable 
 
+While understanding the trends in our dataset, it is important to **understand the outcome variable *ESTIMATE*.** Specifically in regards to our aggregated measures for all race/sex pairings across time, and **provided a "standard" of sorts when comparing mean, median, or standard deviation for a specific year, race, and/or sex group**
+
 ```{r}
-## To understand the information from the data, we have to understand the outcome variable which showcase the estimate for drug overdose death, these aggregrate measures are for all race/sex pairings across time, and provided a "standard" of sorts when comparing mean, median, or standard deviation for a specific year, race, and/or sex group. 
-
-
 mean_estimate <- mean(drug_RES$ESTIMATE, na.rm = TRUE) #4.2
 median_estimate <- median(drug_RES$ESTIMATE, na.rm = TRUE) #2
 std_estimate <- sd(drug_RES$ESTIMATE, na.rm = TRUE) #5.19
+```
 
 
+Focused on the mean of the different races and gender to see the mean of drug overdose death rate among the different groups as well as the standard deviation
 
-
-## To gain a better understanding of the outcome, we chose to focus on the mean of the different races and gender to see the mean of drug overdose death rate amongst the different groups as well as the standard deviation 
-
+```{r, echo=FALSE}
 meanrace <- drug_RES %>%
   group_by(Race_Ethnicity, Sex) %>%
   summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
@@ -374,9 +377,14 @@ stdrace<- drug_RES %>%
   summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 stdrace
+```
 
-##Racial Group Mean and Standard Deviation by Year
+**White Males estimated death rate is nearly ten times that of Asian women**, showing the range possible based on racial identity and sex. Like previously mentioned, White Males and Black Males have the highest standard deviation of estimates, with 7.33 and 6.71, respectively. Across racial groups, we see that **females consistently have lower average estimated death rates and standard deviations which point to the influence of sex**. 
 
+$~$
+##### Racial Group Mean and Standard Deviation by Year
+
+```{r, echo=FALSE}
 mean_year_race <- drug_RES %>% 
   group_by(YEAR, Race_Ethnicity) %>% 
    summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
@@ -388,9 +396,13 @@ std_year_race <- drug_RES %>%
     summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 std_year_race
+```
+Like the graphs showed, **_White Males and Native American Males have the highest mean rates across drug type and year_** with an estimate of 6.98 and 6.05 deaths per 100,000 people on average, respectively.
 
-#Sex Group Mean and Standard Deviation by Year
+$~$
 
+##### Sex Group Mean and Standard Deviation by Year
+```{r, echo=FALSE}
 mean_year_sex <- drug_RES %>% 
   group_by(YEAR, Sex) %>% 
    summarize(mean_estimate = mean(ESTIMATE, na.rm = TRUE), .groups = 'drop')
@@ -402,8 +414,14 @@ std_year_sex <- drug_RES %>%
      summarize(std_dev_estimate = sd(ESTIMATE, na.rm = TRUE), .groups = 'drop')
 
 std_year_sex
+```
+$~$
 
-##Drug Type Mean and Standard Deviation by Year 
+##### Drug Type Mean and Standard Deviation by Year
+
+We excluded the two more general categories of "All Drug Type" and "Any Opioid" here to focus on more narrowly defined drug type categories. 
+
+```{r, echo=FALSE}
 mean_year_type <- drug_RES %>% 
   group_by(YEAR, Responsible_Drug) %>% 
   filter(!Responsible_Drug %in% c("All Drug Types", "Any Opioid")) %>% 
@@ -418,27 +436,42 @@ std_year_type <- drug_RES %>%
 
 std_year_type
 
-
-
 ```
 
-#### The central tendencies produced in this section give us a numerical representation of some of the trends seen in the previous descriptive visualizations. Like the graphs showed, White Males and Native American Males have the highest mean rates across drug type and year with an estimate of 6.98 and 6.05 deaths per 100,000 people on average, respectively. White Males estimated death rate is nearly ten times that of Asian women, showing the range possible based on racial identity and sex. Like previously mentioned, White Males and Black Males have the highest standard deviation of estimates, with 7.33 and 6.71, respectively. Across racial groups, we see that females consistently have lower average estimated death rates and standard deviations which point to the influence of sex. We see a fairly consistent increase in mean and standard deviation as the year increases, although the increase "steepends" as the years approach 2018. These increases were consistent regardless of sex and race. Consistent increases were seen when focusing on drug type as well. We excluded the two more general categories of "All Drug Type" and "Any Opioid" here to focuse on more narrowly defined drug type categories. During the earlier years, methadone and synthetic opioids "trade" places with which level has the lowest estimate. This is until 2014, when sythetic opioid deaths become much more prevalent. This is likely due to the increase in fentanyl-related drug deaths during the same time. Despite synthetic opioids being having some of the lowest rates from 1999-2013, it is the highest of the narrowly defined levels due to the sharp increase in deaths from 2014-2018. 
+$~$
+
+**Conclusion:** The central tendencies produced in this section give us a **numerical representation of some of the trends seen** in the previous descriptive visualizations. 
+
+**Building interpretation:** There is a **fairly consistent increase in mean and standard deviation as the year increases**, although the increase "steepens" as the years approach 2018. These increases were consistent regardless of sex and race. This was also seen with drug type as well. 
+
+During the earlier years, *methadone and synthetic opioids "trade" places with which level has the lowest estimate*. This is until 2014, when **synthetic opioid deaths become much more prevalent. Which is likely due to the increase in fentanyl-related drug deaths** during the same time. Despite synthetic opioids being having some of the lowest rates from 1999-2013, it is the highest of the narrowly defined levels due to the sharp increase in deaths from 2014-2018. 
 
 
 ## ANOVA Test
 
-#### Given that we have a numerical outcome variable and multiple categorical variables, we decided that ANOVA would be the ideal stastical test to run on our data. 
+ Given that we have a **numerical outcome variable and multiple categorical variables**, we decided that ANOVA would be the ideal statistical test to run on our data. 
 
-### Initial Test
+##### Initial Test
+ A ***two-way ANOVA conducted between Race and Sex in relation*** to the outcome of drug overdose. 
+ 
+ The **H0 (null hypothesis)** suggest that there **is no difference of the means between the 2 groups : u1=u2=u3. **
+ 
+ While the **Ha (alternative hypothesis)** suggest that there **is a difference between at least one of the means of the 2 groups: u1 =/ u2 =/u3. **
+ 
 ```{r, echo = T}
 ## A Two Way ANOVA with Race and Sex as the categorical variables of analysis
+
 RS_Model <- aov(ESTIMATE ~ Race_Ethnicity + Sex,
   data = drug_RES
 )
 summary(RS_Model)
 
 table(drug_RES$Sex, drug_RES$Race_Ethnicity)
+```
 
+From the table we can see this is somewhat of **a balanced Two-way ANOVA** as we can see *close to the same number of observations across the different categories*
+
+```{r, echo = T}
 m1 <- aov(ESTIMATE ~ Ethnicity, data = drug_RES)
 m2 <- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity, data = drug_RES)
 m3 <- aov(ESTIMATE ~ Race_Ethnicity + Sex, data = drug_RES)
@@ -458,25 +491,25 @@ summary(m5)
 summary(m6)
 summary(m7)
 summary(m8)
-
-## From the table we can see this is somewhat of a balanced Two-way ANOVA as we can see close to the same number of observations across the different categories
 ```
+ The results indicate that both Race and Sex are significant to the outcome of drug overdose. With a ***high F-value and small p-value below the alpha level of 0.5, both Race and Sex are significant effects of the outcome.***
 
-#### A two-way ANOVA conducted between Race and Sex in relation to the outcome of drug overdose. The H0 (null hypothesis) suggest that there is no difference of the means between the 2 groups : u1=u2=u3. While the Ha (alternative hypothesis) suggest that there is a difference between at least one of the means of the 2 groups. The results indicate that both Race and Sex are significant to the outcome of drug overdose. With a high F-value and small p-value below the alpha level of 0.5, both Race and Sex are significant effects of the outcome.
+**However** the amount of residuals in our test suggest there is still **another factor that explains the variability in the outcome of drug overdose**.
+$~$
 
-#### However the amount of residuals in our test suggest there is still another factor that explains the variability in the outcome of drug overdose.
+##### Inclusion of Iteraction Term
 
-### Inclusion of Iteraction Term
+A Two Way ANOVA with Race and Sex as the categorical variables of analysis, with an **additional consideration for an interaction effect between these two variables**
 
 ```{r, echo = T}
-## A Two Way ANOVA with Race and Sex as the categorical variables of analysis, with an additional consideration for an interaction effect between these two variables
+
 RS_IntModel <- aov(ESTIMATE ~ Race_Ethnicity + Sex + Race_Ethnicity:Sex,
   data = drug_RES
 )
 
 summary(RS_IntModel)
 ```
-#### Based on the result, we can see that the interaction didn't provided any statistical significance to the outcome of the drug overdose. This is indicated from the low f-value an da high p-value over 0.05. The interaction term with a p-value of 0.065 indicates that we fail to reject the null hypothesis.
+**Conclusion:** we can see that the interaction didn't provided any statistical significance to the outcome of the drug overdose. This is indicated from the low f-value an da high p-value over 0.05. The interaction term with a p-value of 0.065 indicates that we fail to reject the null hypothesis.
 
 ### Inclusion of an Additional Predictor 
 

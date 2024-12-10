@@ -8,7 +8,7 @@ output: html_document
 
 #### Background
 
-Opioids are a serious problem in the United States. Since the late 1990's the **opioid crisis has steadily worsened**. Many attribute the origins of this epidemic to the "Pain as the 5th Vital Sign" campaign and the FDA's approval of the infamous Oxycontin drug. While the opioid crisis is considered a public health emergency, it is not uniformly harmful for everyone. Like many epidemics, **certain demographic groups are more at risk than others**. 
+Opioids are a serious problem in the United States. Since the late 1990s the **opioid crisis has steadily worsened**. Many attribute the origins of this epidemic to the "Pain as the 5th Vital Sign" campaign and the FDA's approval of the infamous Oxycontin drug. While the opioid crisis is considered a public health emergency, it is not uniformly harmful for everyone. Like many epidemics, **certain demographic groups are more at risk than others**. 
 
 #### Purpose 
 
@@ -16,7 +16,7 @@ Understanding **how and why certain groups are most at risk of dying from opioid
 
 #### Objectives
 
-This project **will examine some of the demographic factors, like age, race/ethnicity, and gender, that contribute to and influence the harrowing opioid epidemic in the United States**. Through this demographic analysis, we will examine what cultural and societal factors lead to variations between certain groups. 
+This project **will examine some of the demographic factors, like race/ethnicity and gender, that contribute to and influence the harrowing opioid epidemic in the United States**. Through this demographic analysis, we will examine what cultural and societal factors lead to variations between certain groups. 
 
 #### Research Question 
 

@@ -32,7 +32,7 @@ The data employed in this study is taken from the National Center for Health Sta
 
 The data were gathered in 2019 and is based off of information taken from death certificates.The official information provided about the data set on the Center for Disease Control's website is, "[Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data)". 
 
-We use this dataset because it provides the demographic variables we need to explore between group comparisons, and it also provides an estimated rate of deaths per 100,000 for a given group. As such, the data's appropriate combination of numerical and categorical variables will allow us to perform the appropriate statistical tests given our independent variables of race, ethnicity, and gender, and our single dependent variable of estimated death rate.
+We use this data set because it provides the demographic variables we need to explore between group comparisons, and it also provides an estimated rate of deaths per 100,000 for a given group. As such, the data's appropriate combination of numerical and categorical variables will allow us to perform the appropriate statistical tests given our independent variables of race, ethnicity, and gender, and our single dependent variable of estimated death rate.
 
 **Additional information:**
 The data in CSV file format can be found [here](https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008).
@@ -42,7 +42,7 @@ The data in CSV file format can be found [here](https://www.cdc.gov/nchs/hus/con
 Age | Ages of the observations but not specified in the dataset 
 Sex | Male or Female   
 Ethnicity | Hispanic non-specified race or Non-Hispanic    
-Race_Ethnicity | NH-Black or NH-White or NH-Native American or NH-AAPI or Hispanic non-specified race     
+Race_Ethnicity | NH-Black or NH-White or NH-Native American or NH-AAPI or Hispanic non-specified race
 Drug Type | Natural/Semi-synthetic Opioid or Methadone or Heroin or Synthetic Opioid   
 Year | 1999 - 2018   
 Estimate | Rate of Overdose Deaths per 100,000     
@@ -71,7 +71,7 @@ _It is important to note that these data are taken from death certificates, but 
 
 The data was organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called **"STUB_LABEL"**. 
 
-We must create another variable called **"STUB_NAME"** and the corresponding numerical variables **"STUB_LABEL_NUM"** and **"STUB_NAME_NUM"** to relabel the required variables and subset them accordingly for our analysis. 
+We must use another variable called **"STUB_NAME"** and the corresponding numerical variables **"STUB_LABEL_NUM"** and **"STUB_NAME_NUM"** to relabel the required variables and subset them accordingly for our analysis. 
 
     - Each "STUB_NAME_NUM" number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the "Sex and race and Hispanic origin" level of the "STUB_NAME" variable which corresponds to 5 in "STUB_NAME_NUM."
     

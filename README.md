@@ -15,6 +15,7 @@
   - Our Materials 
     - Project Slides
     - RMarkdown Notebook
+    - Zotero Library
   - Contact Info
     
 ## Project Objectives
@@ -47,8 +48,9 @@ This project was a culmination of observed scholarly works examining topics rela
 ### Visualizations and Models 
 *Visualizations:* Given the format of the data being largely caregorical we largely use bar graphs to highlight the trends of the data. On the x-axis for these graphs are either year or opioid type. Along the Y-axis is always the estimated rate of overdose. This allows us to see the variation of mortality over time and opioid type. Bar graphs also allow us to show the differences between certain demographic groups, like race, ethnicity, and sex which are relevant to our inquiry. 
 
-*Models:* Our mode of analysis, ANOVA, means that we are examining the influence of catergorical variables on our outcome variable. Accordingly, our models look like this: 
+*Models:* Our mode of analysis, ANOVA, means that we are examining the influence of catergorical variables on our outcome variable. Accordingly, our models look something like this like this: 
 
+ESTIMATE ~ Race_Ethnicity + Sex (2-Way)
 
 ESTIMATE ~ Race_Ethnicity + Ethnicity + Sex (3-Way)
 
@@ -58,13 +60,12 @@ ESTIMATE ~ Race_Ethnicity + Ethnicity + Sex + Responsible_Drug (4-Way)
 The formatting of the data itself proved to be troublesome. While we did manage to clean the data enough to be usable for our intended analyses, we were unable to explore variation among age *and* race, ethnicity, and sex, which was our original objective. Moreover, our data is restricted purely to mortality, as our data set is compiled form death certificate information. While the death certificates do inform us as to the drug type responsible for mortality, these data do not specifically outline what the explicit cause of death is (e.g. stroke, cardiac arrest, aneurysm) which could have additional meaning when considering social determinants of health. These data are public use data and the resulting lack of restriction is likely why the data lacks granularity that would have been helpful in this analysis.
 
 ### Future Directions 
-We hope do do more exploration, focusing on cultural meanings and influences for certain enthoracial and sex groups. For example, access to medical care, which has been found to vary among different racial/ethnic groups could be contributing to variation in mortality. This is because opioid abuse often begins from prescribed usage per a medical professional. However, given that our data is from death certificates it is extremely difficult to ascertain how an individual ended up dying, as we can only see what drug is responsible for their death. As such, a qualitative exploration with addicts would be a great way to understand the cultural influences that could be contributing to observed mortality trends. Qualitative inquiry would also overcome a limitation of the current data set, as we would be interacting with living participants as opposed to non-reactive data is less comprehensive
+We hope to do more exploration, focusing on cultural meanings and influences for certain enthoracial and sex groups. For example, access to medical care, which has been found to vary among different racial/ethnic groups could be contributing to variation in mortality. This is because opioid abuse often begins from prescribed usage from a medical professional. However, given that our data is from death certificates it is extremely difficult to ascertain the circumstances around how an individual ended up dying, as we can only see what drug is responsible for their death. As such, a qualitative exploration with addicts would be a great way to understand the cultural influences that could be contributing to observed mortality trends. Qualitative inquiry would also overcome a limitation of the current data set, as we would be interacting with living participants as opposed to non-reactive data is less comprehensive. 
 
 ## Getting Started
 1. Clone this repository
-2. Open up the RMD file as an R Mardown file in RStudio and run the "R Set Up" section of code - these can be foud in the RStudio Folder
-4. Ensure that the pathways and working directories are set appropriately, the "renv::snapshot()" should show where the relevent packages and data files were downloaded. 
-5. All of the necessary files and packages should be within the renv file, which should be visible in the output pane
+2. Open up the RMD file as an R Mardown file in RStudio
+4. Ensure that the pathways and working directories are set appropriately, running "renv::init()" and then "renv::snapshot()" should show allow the renv files and packages to download and show the current working directory
 6. Run the notebook, and make any adjustments to cater to specific inquiry as needed
 
 ## File Directory
@@ -93,6 +94,7 @@ Main Branch
 ## Our Materials
 - [Project Slides](https://www.canva.com/design/DAGWwgKsRU0/UEzbEKhLenYhkhpB-mLa6g/edit?utm_content=DAGWwgKsRU0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [RMarkdown Notebook RMD File](https://github.com/cfitzg4/Draft-QTM302W/blob/main/Shared%20Analysis.Rmd)
+- [Zotero Library](https://www.zotero.org/groups/5725183/qtm__unequal_burden_project/library)
 
 
 ## Contact

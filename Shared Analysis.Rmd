@@ -508,7 +508,7 @@ $~$
 
 #### Inclusion of an Additional Predictor 
 
-A **Three Way Anova with Race, Sex, and Responsible Drug** as the categorical variable of analysis 
+A **Three Way Anova with Race, Sex, and Responsible Drug** as the categorical variable of analysis.
 
 ```{r, echo = T}
 Type_Model<- aov(ESTIMATE ~ Race_Ethnicity + Sex + Responsible_Drug,

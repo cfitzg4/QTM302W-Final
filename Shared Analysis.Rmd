@@ -69,31 +69,114 @@ _It is important to note that these data are taken from death certificates, but 
 
 #### Subsetting the Data
 
-These data were organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called "STUB_LABEL". 
+The data was organized in a way that required a considerable amount of cleaning and subsetting in order to isolate the measures we intended to explore. Specifically, the demographic measures do not have their own variables, but rather are compiled into one variable, called **"STUB_LABEL"**. 
 
 We must create another variable called **"STUB_NAME"** and the corresponding numerical variables **"STUB_LABEL_NUM"** and **"STUB_NAME_NUM"** to relabel the required variables and subset them accordingly for our analysis. 
 
     - Each "STUB_NAME_NUM" number corresponds to categorical measure(s), for the sake of our analysis, we will focus on the "Sex and race and Hispanic origin" level of the "STUB_NAME" variable which corresponds to 5 in "STUB_NAME_NUM."
-    -A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
+    
+    -A similar categorization system exists for specific groups with the "STUB_LABEL" and "STUB_LABEL_NUM" corresponding to "Female: Not Hispanic or Latino: White" and 5.7, respectively. 
+    
+    -The "STUB_LABEL_NUM" builds upon the "STUB_NAME_NUM" with a decimal number to denote a specific sex, ethnicity, and race. 
 
 
 ***For this study we subset the data to exclusively include observations with specified sex, race, and ethnicity.***
 
 ## Methods
 
-####Loading in the Data and Packages
+#### Overview 
 
-In order to answer our research question we need to load in the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups. We will also load in the data  
+In order to evaluate how to best analyze the data we must familiarize ourselves with the variables and how they're oriented.
+
+This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 residents for group listed.
+
+
+1. **Relabel the type of drug overdose for clarity**  
+   This relies upon the existing **“PANEL”** and **“PANEL_NUM”** variables.  
+   - We will produce a table with these two variables so we can see which number correlates with a specific drug type.  
+
+2. **Subset the data to focus on the influence of race and sex on drug overdose**  
+   - Race and gender are under **“STUB_LABEL_NUM”**, so we will disaggregate it and rename it to make the data more readable and optimized for our statistical tests.  
+
+3. **End with five variables of interest**  
+   - **“ESTIMATE”**: Provides the average rate of deaths per 100,000 people.  
+   - **“Race”** and **“Sex”**: Show the racial identity and sex classification provided on the death certificate.  
+   - **“YEAR”**: Notes the year in which the deaths were registered.  
+   - **“Responsible_Drug”**: Identifies the drug responsible for the death as noted on the death certificate.  
+
+
+#### Loading in the Data and Packages
+
+In order to answer our research question we need to load the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups.
 
 ```{r setup}
-# Package used 
+# Packages used 
 library(tidyverse)
 library(ggplot2)
 library(gridExtra)
 
+# Loading the dataset
 drug <- read_csv("Renv/Data/drug_data.csv", show_col_types = F)
 
 ```
+
+
+#### Examining and Cleaning the Data
+
+Identifying how each drug overdoes type is categorized so we can relabel it. 
+
+```{r}
+table(drug$PANEL_NUM, drug$PANEL)
+```
+
+**Number** | **Description**  
+--- | ---  
+0 | all drug overdose deaths regardless of drug type 
+1 | drug overdose deaths from any opioids  
+2 | any drug overdose death from synthetic opioids    
+3 | drug overdose deaths from methadone     
+4 | drug overdose deaths from synthetic opioids except methadone   
+5 | drug overdose deaths from heroin  
+
+
+```{r}
+# Filtering to see the impact of the death rate estimate variation by racial/gender groups based on type of drug causing overdose
+
+drug_type <- drug %>% 
+  rename(Responsible_Drug = "PANEL_NUM") %>% 
+  mutate(
+     Responsible_Drug = case_when(
+      Responsible_Drug == 0 ~ "All Drug Types",
+      Responsible_Drug == 1 ~ "Any Opioid",
+      Responsible_Drug == 2 ~ "Natural/Semisynthetic Opioid",
+      Responsible_Drug == 3 ~ "Methadone",
+      Responsible_Drug == 4 ~ "Synthetic Opioid",
+      Responsible_Drug == 5 ~ "Heroin",
+      TRUE ~ "Unknown" 
+     ))
+
+# Factor function to maintain the order of drug levels in visualization
+
+drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All Drug Types", "Any Opioid", "Natural/Semisynthetic Opioid", "Methadone", "Synthetic Opioid", "Heroin"))
+
+```
+
+**Production of tables to clarify the required demographic data, looking at the number that is populated by observations.**
+
+**Next we will subset the data from the larger data set that are organized by race and sex**
+
+```{r}
+# Finding with single digit number represents the racial/sex levle of the STUB_NAME variable 
+
+table(drug$STUB_NAME_NUM, drug$STUB_NAME)
+
+# 4 is the number that corresponds to Race and Sex, so we filtered on this to see which decimal number corresponds to each racial/gender group. 
+drug_exam <- drug_type %>% 
+  filter(STUB_NAME_NUM == 4)
+```
+
+
+
 
 
 # Findings/Discussion

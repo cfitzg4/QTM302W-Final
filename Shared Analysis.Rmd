@@ -277,7 +277,7 @@ grid.arrange(overall_plot_F, overall_plot_M)
 ```
 
 
-**Conclusion:** The distribution of the data shows that compared to females, ***males experience almost an exponential increase in deaths due to drug overdose spiking around the late 2000s.***
+**Summary:** The distribution of the data shows that compared to females, ***males experience almost an exponential increase in deaths due to drug overdose spiking around the late 2000s.***
 
 **Importance:** These data tell us a lot regarding the different observations witnessed. The distribution provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
 
@@ -296,7 +296,7 @@ year_Sex <- ggplot(drug_RES, aes(x = factor(YEAR), y = ESTIMATE, fill = Sex)) +
 year_Sex
 ```
 
-**Conclusion:** The graph shows that a common trend for both female and male is that ***as the year increased the number of drug overdose increased.*** While it was a subtle increase for females, the males saw a larger rise in drug overdose deaths. 
+**Summary:** The graph shows that a common trend for both female and male is that ***as the year increased the number of drug overdose increased.*** While it was a subtle increase for females, the males saw a larger rise in drug overdose deaths. 
 
 The ***differences in the rate of increase are visible from the continued distance in the median bar between females and males as time goes on***. We can verify this with additional central tendency measures. 
 
@@ -317,7 +317,7 @@ type_RE <- ggplot(drug_RES, aes(x = factor(Responsible_Drug), y = ESTIMATE, fill
 type_RE
 ```
 
-**Conclusion:** The graph shows that among the drug types, **synthetic opioids appear to be one of the leading causes of death** by drug overdose. Specifically for Non-Hispanic White and Non-Hispanic black as they have a high amount of death compared to other Race/Ethnic identities.
+**Summary:** The graph shows that among the drug types, **synthetic opioids appear to be one of the leading causes of death** by drug overdose. Specifically for Non-Hispanic White and Non-Hispanic black as they have a high amount of death compared to other Race/Ethnic identities.
 
 We can also see that **methadone has the lowest rates for every group** when averaging rates from 1999-2018.This is likely because methadone is typically **given out as clinics as way to mitigate withdrawal symptoms** for drug users trying to **decrease or eliminate their opioid consumption**. Since clinics typically give this drug out, it is in a more controlled environment with a measure dose which is why the rates are lower
 
@@ -346,7 +346,7 @@ type_REM
 ```
 
 
-**Conclusion**: The first two categories have the lowest estimates likely because they are more inclusive/broader categories in general. However, the **synthetic opioid is the highest out of the rest of the categories**. Fentanyl is a highly potent and potentially lethal drug that is classified as a synthetic opioid. Although we cannot conclude based upon the language used in this data set, **fentanyl is likely the reason why this categories’ estimates are higher**. 
+**Summary**: The first two categories have the lowest estimates likely because they are more inclusive/broader categories in general. However, the **synthetic opioid is the highest out of the rest of the categories**. Fentanyl is a highly potent and potentially lethal drug that is classified as a synthetic opioid. Although we cannot conclude based upon the language used in this data set, **fentanyl is likely the reason why this categories’ estimates are higher**. 
 
 Another important note is that this is the only category where **Black males have a higher estimate than White men**, which may indicate a _need for further inquiry_. Among the rest of the drug type categories, the same trends by race/sex pairing are generally seen.
 
@@ -441,7 +441,7 @@ std_year_type
 
 $~$
 
-**Conclusion:** The central tendencies produced in this section give us a **numerical representation of some of the trends seen** in the previous descriptive visualizations. 
+**Summary:** The central tendencies produced in this section give us a **numerical representation of some of the trends seen** in the previous descriptive visualizations. 
 
 **Building interpretation:** There is a **fairly consistent increase in mean and standard deviation as the year increases**, although the increase "steepens" as the years approach 2018. These increases were consistent regardless of sex and race. This was also seen with drug type as well. 
 
@@ -450,10 +450,10 @@ During the earlier years, *methadone and synthetic opioids "trade" places with w
 
 ## ANOVA Test
 
- Given that we have a **numerical outcome variable and multiple categorical variables**, we decided that ANOVA would be the ideal statistical test to run on our data. 
+ Given that we have a **numerical outcome variable and multiple independent categorical variables**, we decided that ANOVA would be the ideal statistical test to run on our data. 
 
 #### Initial Test
- A ***two-way ANOVA conducted between Race and Sex in relation*** to the outcome of drug overdose. 
+ A ***two-way ANOVA conducted between Race/Ethnicity and Sex in relation*** to the outcome of drug overdose. 
  
  The **H0 (null hypothesis)** suggest that there **is no difference of the means between the 2 groups : u1=u2=u3. **
  
@@ -502,7 +502,7 @@ RS_IntModel <- aov(ESTIMATE ~ Race_Ethnicity + Sex + Race_Ethnicity:Sex,
 
 summary(RS_IntModel)
 ```
-**Conclusion:** We can see that the interaction didn't provided any statistical significance to the outcome of the drug overdose. This is indicated from the low f-value an da high p-value over 0.05. The interaction term with a p-value of 0.065 indicates that we fail to reject the null hypothesis.
+**Summary:** We can see that the interaction didn't provided any statistical significance to the outcome of the drug overdose. This is indicated from the low f-value an da high p-value over 0.05. The interaction term with a p-value of 0.065 indicates that we fail to reject the null hypothesis.
 
 $~$
 
@@ -519,16 +519,21 @@ summary(Type_Model)
 
 Lastly, we conducted a three way ANOVA we wanted to ***determine whether or not the Responsible_drug factor played a role in the outcome of drug overdoses.*** 
 
-**Conclusion:** Based on the results we can see that inclusion of responsible drug is statistically significant. The f-values of 161.09 and a p-value of <2e-16, showcased that the **Responsible_drug, or the type of drug, plays a role in drug overdose deaths.** We can also see a decrease in the residuals indicating, that the Responsible_Drug variable accounted for some of the variability of the Estimate outcome variable.  
+**Summary:** Based on the results we can see that inclusion of responsible drug is statistically significant. The f-values of 161.09 and a p-value of <2e-16, showcased that the **Responsible_drug, or the type of drug, plays a role in drug overdose deaths.** We can also see a decrease in the residuals indicating, that the Responsible_Drug variable accounted for some of the variability of the Estimate outcome variable.  
 
 $~$
 
 ## Conclusions
 
-Drug overdoses in the US have been steadily increasing over the years. However the distribution of these deaths are not uniform for everyone. Certain groups, whether they be based around age, race, or sex, can be more prone than others to have a drug over dose. To better understand which groups are most at risk and for what drugs they are most likely to be impacted by we produced multiple descriptive visualizations and ANOVA tests on data taken from the National Center for Health Statistics and specifically their National Vital Statistics System. These Data were gathered in 2019 and are based off of information taken from death certificates. The official information provided about the data set on the Center for Disease Control's website is, "Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018". Additional information about these specific data can be found [here](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data). The CSV formatted data can be found [here](https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008). Chart visualizations of the data are available [here](https://www.cdc.gov/nchs/data/hus/2019/008-508.pdf). 
+Drug overdoses in the US have been steadily increasing over the years. However the distribution of these deaths are not uniform for everyone. Certain groups, whether they be based around age, race, or sex, can be more prone than others to have a drug overdose. To better understand which groups are most at risk and for what drugs they are most likely to be impacted by we produced multiple descriptive visualizations and ANOVA tests on data taken from the National Center for Health Statistics and specifically their National Vital Statistics System. These Data were gathered in 2019 and are based off of information taken from death certificates. The official information provided about the data set on the Center for Disease Control's website is, "Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States, selected years 1999-2018". Additional information about these specific data can be found [here](https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data). The CSV formatted data can be found [here](https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008). Chart visualizations of the data are available [here](https://www.cdc.gov/nchs/data/hus/2019/008-508.pdf). 
 
 $~$
 
 ## Limitations
 
-It is important to note that there is no gender variable in this data set, but rather a sex variable. As such, we cannot confirm or deny if gender minorities, like non-binary individuals, transgender men, and transgender women are included in the data set, which reduces the inclusion and representation of these data. To avoid confusion regarding this, we will explicitly refer to this variable as sex or sexual identity as to not misrepresent the data. For the sake of the present analysis, we focus on race and sexual identity, this is because of the intersectional nature of these two identities and how they are tied to systemic disparities. Moreover, the selection of these groups will enable more targeted interventions based upon the findings.  
+It is important to note that there is no gender variable in this data set, but rather a sex variable. As such, we cannot confirm or deny if gender minorities, like non-binary individuals, transgender men, and transgender women are included in the data set, which reduces the inclusion and representation of these data. To avoid confusion regarding this, we will explicitly refer to this variable as sex or sexual identity as to not misrepresent the data. For the sake of the present analysis, we focus on race/ethnicity and sexual identity, this is because of the intersectional nature of these two identities and how they are tied to systemic disparities. Another limitation of these data is that they come from death certificates, this means that we cannot see how individuals lived, only how they died. Alongside this we can only see the drug responsible for their death as opposed to the cause of death like heart attack or stroke which could have additional implications when considering social determinants of health like race, ethnicity, and sex.  
+
+$~$
+
+## Next Steps
+The findings from this project indicate that public health interventions should specifically target non-Hispanic Black and White men, as they have the highest likelihood of dying from opioids. Resources that can combat opioid overdose, like acute medications such as Naloxone and Narcan and fentanyl test strips should be made available in areas that are popular for non-Hispanic Black and White men. Further inquiry is needed to properly examine the underlying cultural influences related to race, ethnicity, sex, and even drug type that resulted in the trends seen from our analyses. A qualitative approach may be optimal in this context, as it would allow researchers to speak directly with addicts, examine their behavior and establish trends based on relevant demographic factors, like the ones analyzed here, but factors like age, income, education, and region. Opioid abuse and moralities are a pressing issue in our society and proper empirical research will be integral in remedying this crisis. 

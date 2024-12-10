@@ -443,7 +443,7 @@ non-specified race</td>
 </tr>
 <tr class="odd">
 <td>Drug Type</td>
-<td>Natural/Semisynthetic Opioid or Methadone or Heroin or Synthetic
+<td>Natural/Semi-synthetic Opioid or Methadone or Heroin or Synthetic
 Opioid</td>
 </tr>
 <tr class="even">
@@ -1000,8 +1000,9 @@ have the highest standard deviation of estimates, with 7.33 and 6.71,
 respectively. Across racial groups, we see that <strong>females
 consistently have lower average estimated death rates and standard
 deviations which point to the influence of sex</strong>.</p>
-<p><span class="math inline">\(~\)</span> ##### Racial Group Mean and
-Standard Deviation by Year</p>
+<p><span class="math inline">\(~\)</span></p>
+<div id="racial-group-mean-and-standard-deviation-by-year" class="section level5">
+<h5>Racial Group Mean and Standard Deviation by Year</h5>
 <pre><code>## # A tibble: 91 × 3
 ##     YEAR Race_Ethnicity             mean_estimate
 ##    &lt;dbl&gt; &lt;chr&gt;                              &lt;dbl&gt;
@@ -1035,6 +1036,7 @@ Males have the highest mean rates across drug type and
 year</em></strong> with an estimate of 6.98 and 6.05 deaths per 100,000
 people on average, respectively.</p>
 <p><span class="math inline">\(~\)</span></p>
+</div>
 <div id="sex-group-mean-and-standard-deviation-by-year" class="section level5">
 <h5>Sex Group Mean and Standard Deviation by Year</h5>
 <pre><code>## # A tibble: 40 × 3
@@ -1124,8 +1126,8 @@ narrowly defined levels due to the sharp increase in deaths from
 <p>Given that we have a <strong>numerical outcome variable and multiple
 categorical variables</strong>, we decided that ANOVA would be the ideal
 statistical test to run on our data.</p>
-<div id="initial-test" class="section level5">
-<h5>Initial Test</h5>
+<div id="initial-test" class="section level4">
+<h4>Initial Test</h4>
 <p>A <strong><em>two-way ANOVA conducted between Race and Sex in
 relation</em></strong> to the outcome of drug overdose.</p>
 <p>The <strong>H0 (null hypothesis)</strong> suggest that there
@@ -1158,23 +1160,13 @@ summary(RS_Model)</code></pre>
 <p>From the table we can see this is somewhat of <strong>a balanced
 Two-way ANOVA</strong> as we can see <em>close to the same number of
 observations across the different categories</em></p>
-<pre class="r"><code>m1 &lt;- aov(ESTIMATE ~ Ethnicity, data = drug_RES)
-m2 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity, data = drug_RES)
+<pre class="r"><code>m2 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity, data = drug_RES)
 m3 &lt;- aov(ESTIMATE ~ Race_Ethnicity + Sex, data = drug_RES)
 m4 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Sex, data = drug_RES)
-m4.1 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Sex + Sex:Race_Ethnicity + Responsible_Drug, data = drug_RES)
 m5 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Sex + Responsible_Drug, data = drug_RES)
-m6 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Ethnicity:Race_Ethnicity, data = drug_RES)
-m7 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Race_Ethnicity:Responsible_Drug, data = drug_RES)
-m8 &lt;- aov(ESTIMATE ~ Ethnicity + Race_Ethnicity + Responsible_Drug + Race_Ethnicity:Responsible_Drug, data = drug_RES)
 
-summary(m1)</code></pre>
-<pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Ethnicity     1    170   170.4   29.89 6.57e-08 ***
-## Residuals   632   3602     5.7                     
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>summary(m2)</code></pre>
+# Summary 
+summary(m2)</code></pre>
 <pre><code>##                 Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## Ethnicity        1    170  170.36   33.35 1.21e-08 ***
 ## Race_Ethnicity   3    389  129.65   25.39 1.64e-15 ***
@@ -1186,16 +1178,6 @@ summary(m1)</code></pre>
 ## Race_Ethnicity   4  559.3  139.83   29.66 &lt; 2e-16 ***
 ## Sex              1  252.5  252.46   53.56 7.7e-13 ***
 ## Residuals      628 2960.1    4.71                    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>summary(m4.1)</code></pre>
-<pre><code>##                     Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Ethnicity            1  170.4  170.36   39.06 7.65e-10 ***
-## Race_Ethnicity       3  389.0  129.65   29.72  &lt; 2e-16 ***
-## Sex                  1  252.5  252.46   57.88 1.04e-13 ***
-## Responsible_Drug     3  209.7   69.89   16.02 4.81e-10 ***
-## Race_Ethnicity:Sex   4   41.7   10.42    2.39   0.0497 *  
-## Residuals          621 2708.8    4.36                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>summary(m4)</code></pre>
@@ -1215,30 +1197,6 @@ summary(m1)</code></pre>
 ## Residuals        625 2750.4    4.40                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>summary(m6)</code></pre>
-<pre><code>##                 Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Ethnicity        1    170  170.36   33.35 1.21e-08 ***
-## Race_Ethnicity   3    389  129.65   25.39 1.64e-15 ***
-## Residuals      629   3213    5.11                     
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>summary(m7)</code></pre>
-<pre><code>##                                  Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Ethnicity                         1  170.4  170.36  35.531 4.23e-09 ***
-## Race_Ethnicity                    3  389.0  129.65  27.040  &lt; 2e-16 ***
-## Race_Ethnicity:Responsible_Drug  15  268.6   17.91   3.735 2.45e-06 ***
-## Residuals                       614 2943.9    4.79                     
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>summary(m8)</code></pre>
-<pre><code>##                                  Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Ethnicity                         1  170.4  170.36  35.531 4.23e-09 ***
-## Race_Ethnicity                    3  389.0  129.65  27.040  &lt; 2e-16 ***
-## Responsible_Drug                  3  204.3   68.10  14.204 5.84e-09 ***
-## Race_Ethnicity:Responsible_Drug  12   64.3    5.36   1.118    0.342    
-## Residuals                       614 2943.9    4.79                     
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The results indicate that both Race and Sex are significant to the
 outcome of drug overdose. With a <strong><em>high F-value and small
 p-value below the alpha level of 0.5, both Race and Sex are significant
@@ -1247,8 +1205,8 @@ effects of the outcome.</em></strong></p>
 there is still <strong>another factor that explains the variability in
 the outcome of drug overdose</strong>. <span class="math inline">\(~\)</span></p>
 </div>
-<div id="inclusion-of-iteraction-term" class="section level5">
-<h5>Inclusion of Iteraction Term</h5>
+<div id="inclusion-of-iteraction-term" class="section level4">
+<h4>Inclusion of Iteraction Term</h4>
 <p>A Two Way ANOVA with Race and Sex as the categorical variables of
 analysis, with an <strong>additional consideration for an interaction
 effect between these two variables</strong></p>
@@ -1264,16 +1222,18 @@ summary(RS_IntModel)</code></pre>
 ## Residuals          624 2915.9    4.67                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p><strong>Conclusion:</strong> we can see that the interaction didn’t
+<p><strong>Conclusion:</strong> We can see that the interaction didn’t
 provided any statistical significance to the outcome of the drug
 overdose. This is indicated from the low f-value an da high p-value over
 0.05. The interaction term with a p-value of 0.065 indicates that we
 fail to reject the null hypothesis.</p>
+<p><span class="math inline">\(~\)</span></p>
 </div>
-<div id="inclusion-of-an-additional-predictor" class="section level3">
-<h3>Inclusion of an Additional Predictor</h3>
-<pre class="r"><code>## A Three Way Anova with Race, Sex, and Responsible Drug as the categorical variable of analysis 
-Type_Model&lt;- aov(ESTIMATE ~ Race_Ethnicity + Sex + Responsible_Drug,
+<div id="inclusion-of-an-additional-predictor" class="section level4">
+<h4>Inclusion of an Additional Predictor</h4>
+<p>A <strong>Three Way Anova with Race, Sex, and Responsible
+Drug</strong> as the categorical variable of analysis.</p>
+<pre class="r"><code>Type_Model&lt;- aov(ESTIMATE ~ Race_Ethnicity + Sex + Responsible_Drug,
   data = drug_RES)
 summary(Type_Model)</code></pre>
 <pre><code>##                   Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -1283,47 +1243,52 @@ summary(Type_Model)</code></pre>
 ## Residuals        625 2750.4    4.40                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div id="lastly-we-conducted-a-three-way-anova-we-wanted-to-determine-whether-or-not-the-responsible_drug-factor-played-a-role-in-the-outcome-of-drug-overdoses.-based-on-the-results-we-can-see-that-inclusion-of-responsible-drug-is-statistically-significant.-the-f-values-of-161.09-and-a-p-value-of-2e-16-showcased-that-the-responsible_drug-or-the-type-of-drug-plays-a-role-in-drug-overdose-deaths.-we-can-also-see-a-decrease-in-the-residuals-indicating-that-the-responsible_drug-variable-accounted-for-some-of-the-variability-of-the-estimate-outcome-variable." class="section level4">
-<h4>Lastly, we conducted a three way ANOVA we wanted to determine
-whether or not the Responsible_drug factor played a role in the outcome
-of drug overdoses. Based on the results we can see that inclusion of
-responsible drug is statistically significant. The f-values of 161.09
-and a p-value of &lt;2e-16, showcased that the Responsible_drug, or the
-type of drug, plays a role in drug overdose deaths. We can also see a
-decrease in the residuals indicating, that the Responsible_Drug variable
-accounted for some of the variability of the Estimate outcome
-variable.</h4>
+<p>Lastly, we conducted a three way ANOVA we wanted to
+<strong><em>determine whether or not the Responsible_drug factor played
+a role in the outcome of drug overdoses.</em></strong></p>
+<p><strong>Conclusion:</strong> Based on the results we can see that
+inclusion of responsible drug is statistically significant. The f-values
+of 161.09 and a p-value of &lt;2e-16, showcased that the
+<strong>Responsible_drug, or the type of drug, plays a role in drug
+overdose deaths.</strong> We can also see a decrease in the residuals
+indicating, that the Responsible_Drug variable accounted for some of the
+variability of the Estimate outcome variable.</p>
+<p><span class="math inline">\(~\)</span></p>
 </div>
-<div id="drug-overdoses-in-the-us-have-been-steadily-increasing-over-the-years.-however-the-distribution-of-these-deaths-are-not-uniform-for-everyone.-certain-groups-whether-they-be-based-around-age-race-or-sex-can-be-more-prone-than-others-to-have-a-drug-over-dose.-to-better-understand-which-groups-are-most-at-risk-and-for-what-drugs-they-are-most-likely-to-be-impacted-by-we-produced-multiple-descriptive-visualizations-and-anova-tests-on-data-taken-from-the-national-center-for-health-staitstics-and-specifically-their-national-vital-statistics-system.-these-data-were-gathered-in-2019-and-are-based-off-of-information-taken-from-death-certificates.-the-official-information-provided-about-the-data-set-on-the-center-for-disease-controls-website-is-drug-overdose-death-rates-by-drug-type-sex-age-race-and-hispanic-origin-united-states-selected-years-1999-2018.-additional-information-about-these-specific-data-can-be-found-here-httpsdata.cdc.govnchsdrug-overdose-death-rates-by-drug-type-sex-age-rac95ax-ymtcabout_data.-the-csv-formatted-data-can-be-found-here-httpswww.cdc.govnchshuscontents2019.htmtable-008.-chart-visualizations-of-the-data-are-available-here-httpswww.cdc.govnchsdatahus2019008-508.pdf.-it-is-important-to-note-that-there-is-no-gender-variable-in-this-data-set-but-rather-a-sex-variable.-as-such-we-cannot-confirm-or-deny-if-gender-minorities-like-non-binary-individiuals-transgender-men-and-transgender-women-are-included-in-the-data-set-which-reduces-the-inclusion-and-representation-of-these-data.-to-avoid-confusion-regarding-this-we-will-explicitly-refer-to-this-variable-as-sex-or-sexual-identity-as-to-not-misrepresent-the-data.-for-the-sake-of-the-present-analysis-we-focus-on-race-and-sexual-identity-this-is-because-of-the-intersectional-nature-of-these-two-identities-and-how-they-are-tied-to-systemic-disaprities.-moreover-the-selection-of-these-groups-will-enable-more-targeted-interventions-based-upon-the-findings." class="section level4">
-<h4>Drug overdoses in the US have been steadily increasing over the
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>Drug overdoses in the US have been steadily increasing over the
 years. However the distribution of these deaths are not uniform for
 everyone. Certain groups, whether they be based around age, race, or
 sex, can be more prone than others to have a drug over dose. To better
 understand which groups are most at risk and for what drugs they are
 most likely to be impacted by we produced multiple descriptive
 visualizations and ANOVA tests on data taken from the National Center
-for Health Staitstics and specifically their National Vital Statistics
+for Health Statistics and specifically their National Vital Statistics
 System. These Data were gathered in 2019 and are based off of
 information taken from death certificates. The official information
 provided about the data set on the Center for Disease Control’s website
 is, “Drug overdose death rates, by drug type, sex, age, race, and
 Hispanic origin: United States, selected years 1999-2018”. Additional
-information about these specific data can be found here: <a href="https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data" class="uri">https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data</a>.
-The CSV formatted data can be found here: <a href="https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008" class="uri">https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008</a>.
-Chart visualizations of the data are available here: <a href="https://www.cdc.gov/nchs/data/hus/2019/008-508.pdf" class="uri">https://www.cdc.gov/nchs/data/hus/2019/008-508.pdf</a>. It
-is important to note that there is no gender variable in this data set,
-but rather a sex variable. As such, we cannot confirm or deny if gender
-minorities, like non-binary individiuals, transgender men, and
+information about these specific data can be found <a href="https://data.cdc.gov/NCHS/Drug-overdose-death-rates-by-drug-type-sex-age-rac/95ax-ymtc/about_data">here</a>.
+The CSV formatted data can be found <a href="https://www.cdc.gov/nchs/hus/contents2019.htm#Table-008">here</a>.
+Chart visualizations of the data are available <a href="https://www.cdc.gov/nchs/data/hus/2019/008-508.pdf">here</a>.</p>
+<p><span class="math inline">\(~\)</span></p>
+</div>
+<div id="limitations" class="section level2">
+<h2>Limitations</h2>
+<p>It is important to note that there is no gender variable in this data
+set, but rather a sex variable. As such, we cannot confirm or deny if
+gender minorities, like non-binary individuals, transgender men, and
 transgender women are included in the data set, which reduces the
 inclusion and representation of these data. To avoid confusion regarding
 this, we will explicitly refer to this variable as sex or sexual
 identity as to not misrepresent the data. For the sake of the present
 analysis, we focus on race and sexual identity, this is because of the
 intersectional nature of these two identities and how they are tied to
-systemic disaprities. Moreover, the selection of these groups will
-enable more targeted interventions based upon the findings.</h4>
-</div>
-</div>
+systemic disparities. Moreover, the selection of these groups will
+enable more targeted interventions based upon the findings.</p>
 </div>
 
 

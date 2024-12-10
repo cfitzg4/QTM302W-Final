@@ -70,24 +70,32 @@ We hope to do more exploration, focusing on cultural meanings and influences for
 
 ## File Directory
 ```Bash
-Main Branch 
+Main Pathway 
 ├── RStudio
+│   ├── .RData
+│   ├── .Rhistory
+│   ├── .Rprofile
 │   ├── QTM 302W Project.Rproj
 │   ├── Shared-Analysis.Rmd
 │   └── Shared-Analysis.html
 ├── Renv
-│   ├── renv.lock
-│   ├── settings.json
-│   ├── Miscellaneous
+│   ├── Data
 │   │   ├── .DS_Store
-│   │   ├── .Rprofile
-│   │   ├── .gitattributes
-│   │   └── .gitignore
-│   └── data
+│   │   ├── DEMO_L.XPT
+│   │   ├── drug_data.csv
+│   │   └── pc.csv
+│   └── Miscellaneous
+│       ├── .Rproj.user
+│       │   ├── 495FDD91
+│       │   └── shared/notebooks
+│       ├── aarch64-apple-darwin20
 │       ├── .DS_Store
-│       ├── DEMO_L.XPT
-│       ├── drug_data.csv
-│       └── pc.csv
+│       ├── .Rprofile
+│       ├── .gitattributes
+│       ├── .gitignore
+│       ├── activate.R
+│       ├── settings.json
+│       └── activate.R 
 └── README.md
 ```
 

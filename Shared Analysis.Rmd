@@ -107,7 +107,7 @@ This data set classifies drug overdose by type, and also takes into account esti
 
 #### Loading in the Data and Packages
 
-In order to answer our research question we need to load the data and relevant packages that allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups.
+In order to answer our research question we need to **load the data and relevant packages** like tidyverse, ggplot2 and gridExtra that will allow us to complete the previously mentioned subsetting and the statistical tests required to compare the estimated death rates between certain groups.
 
 ```{r setup}
 # Packages used 
@@ -166,72 +166,36 @@ drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All 
 **Next we will subset the data from the larger data set that are organized by race and sex**
 
 ```{r}
-# Finding with single digit number represents the racial/sex levle of the STUB_NAME variable 
+# Finding with single digit number represents the racial/sex level of the STUB_NAME variable 
 
 table(drug$STUB_NAME_NUM, drug$STUB_NAME)
 
 # 4 is the number that corresponds to Race and Sex, so we filtered on this to see which decimal number corresponds to each racial/gender group. 
 drug_exam <- drug_type %>% 
   filter(STUB_NAME_NUM == 4)
+
+# Produce a table to see which number corresponds to a specific racial/sex pairing (i.e Black Male)
+table(drug_exam$STUB_LABEL_NUM, drug_exam$STUB_LABEL)
+
 ```
 
+**Number** | **Description**  
+--- | --- 
+4.1 | White Males
+4.2 | Black Males 
+4.3 | Native American Males  
+4.4 | Asian Males     
+4.5 | White Females   
+4.6 | Black Females  
+4.7 | Native American Females
+4.8 | Asian Females
 
+This allows for the **creation of a new variable** that explicitly states that states these race/sex pairings and produce a subset that focus on this new variable.
 
-
-
-# Findings/Discussion
-
-# Conclusion 
-
-##
-
-#### First we must load the data in the proper format and get a grasp of the distribution for variables of interest. We must also load in the appropriate packages to clean and analyze the data like, tidyverse and ggplot. 
-
-## Examining and Cleaning the Data
-
-#### In order to evaluate how to best analyze the data we must familiarize ourselves with the variables and how these variables are oriented. This data set classifies drug overdose by type, and also takes into account estimations for the rate of overdose per 100,000 residents  for group listed. We first relabel the type of drug overdose for clarity, which relies upon the existing "PANEL" and "PANEL_NUM" variables. By producing a table with these two variables we can see which label and number have observations, thereby illuminating which labels to apply and where. Then we subset the data to focus on the influence of race and sex on drug overdose. Demographic data, like race and gender are listed under the variable "STUB_LABEL_NUM" so we will accordingly disaggregate it and rename it to make the data more readable and optimized for our statistical tests. We ultimately end up with 5 variables of interest. "ESTIMATE" provides the average rate of deaths per 100,000 people. "Race" and "Sex" shows us the racial identity and sex classification provided on the death certificate. "YEAR" notes the year in which the deaths were registered. "Responsible_Drug" tells us the drug responsible for the death measured by the death certificate. 
+The **subset disaggregates race and sex** so that we can perform a ***2-way ANOVA*** to see if these two variables are statistically _significant predictors for drug overdose mortality_. 
 
 
 ```{r}
-
-##Our first step is to identify how each drug overdose type is categorized so that we can properly relabel it.  
-table(drug$PANEL_NUM, drug$PANEL)
-
-## This tells us that 0 represents all drug overdose deaths regardless of drug type, 1 represents drug overdose deaths from any opioid, 2 represents any drug overdose death from synthetic opioids, 3 represents drug overdose deaths from methadone, 4 represents drug overdose deaths from sythentic opioids besides methadone, and 5 represents drug overdose deaths from heroin, allowing us to filter accordingly to impact if the death rate estimates vary by racial/gender groups based on the type of drug causing the overdose. 
-
-drug_type <- drug %>% 
-  rename(Responsible_Drug = "PANEL_NUM") %>% 
-  mutate(
-     Responsible_Drug = case_when(
-      Responsible_Drug == 0 ~ "All Drug Types",
-      Responsible_Drug == 1 ~ "Any Opioid",
-      Responsible_Drug == 2 ~ "Natural/Semisynthetic Opioid",
-      Responsible_Drug == 3 ~ "Methadone",
-      Responsible_Drug == 4 ~ "Synthetic Opioid",
-      Responsible_Drug == 5 ~ "Heroin",
-      TRUE ~ "Unknown" 
-     ))
-
-##We complete the factor function here to maintain the order of the drug levels in future visualizations. 
-
-drug_type$Responsible_Drug <- factor(drug_type$Responsible_Drug, levels =c("All Drug Types", "Any Opioid", "Natural/Semisynthetic Opioid", "Methadone", "Synthetic Opioid", "Heroin"))
-
-##We then produced tables to clarify the required demographic data. Specifically, we are looking for what number is populated by observations. This information allows us to then subset the data from the larger data set that are organized by race and sex. 
-
-##This table tells us which single digit number represents the racial/sex level of the STUB_NAME variable. 
-table(drug$STUB_NAME_NUM, drug$STUB_NAME)
-
-## 4 is the number that corresponds to Race and Sex, so we filtered on this to see which decimal number corresponds to each racial/gender group. 
-drug_exam <- drug_type %>% 
-  filter(STUB_NAME_NUM == 4)
-
-
-## With a similar principle to the previous table, we produced this one to see which specific number corresponds to a specific racial/sex pairing, like Black male, for example. We measure this correspondence by whether or not a number has observations under a specific label. If this number has observations, this indicates that it represents the given racial/sex pairing. 
-table(drug_exam$STUB_LABEL_NUM, drug_exam$STUB_LABEL)
-
-## From this table we can see that 4.1 is White Males, 4.2 is Black Males, 4.3 is Native American Males, 4.4 is Asian Males, 4.5 is White Females, 4.6 is Black Females, 4.7 is Native American Females, and 4.8 is Asian Female. We then create a new variable that explicitly states these race/sex pairings and produce a subset that focuses on this new variable. 
-
-## We make another subset that disaggregates race and sex so that we can perform a 2-way ANOVA to see if these two variables are statistically significant predictors for drug overdose mortality. 
 drug_RES <- drug_type %>% 
   filter(STUB_NAME_NUM == 5) %>%
   rename(Race_Ethnicity = "STUB_LABEL_NUM") %>% 
@@ -273,22 +237,33 @@ drug_RES <- drug_RES %>%
   na.omit
 
 
-
 ##Disaggregating by Sex for Central Measures and Visualization
 drug_Fem <- drug_RES %>% 
   filter(Sex == "Female")
 
 drug_Male <- drug_RES %>% 
   filter(Sex == "Male")
-
-  
 ```
+
+
+
+# Findings/Discussion
+
+# Conclusion 
+
+##
+
+#### First we must load the data in the proper format and get a grasp of the distribution for variables of interest. We must also load in the appropriate packages to clean and analyze the data like, tidyverse and ggplot. 
+
+
 ## Visualizing the Distribution
 
-### All Racial and Sex Identity Groups, for all Drug Overdose Types, from 1999 - 2018
+#### All Racial and Sex Identity Groups, for all Drug Overdose Types, from 1999 - 2018
 
-#### We produced this visualization intially to get an idea of the increase of drug mortality over around 20 years. This time period is especially relevant as the CDC declares that this time range represents the "Opioid Epidemic," and many of the drugs identified in this data set are classified as some form of an opioid. This graph is also helpful in highlighting the variation in mortality by race/sex pairings.  https://www.cdc.gov/museum/pdf/cdcm-pha-stem-uncovering-the-opioid-epidemic-lesson.pdf  
-###  Plots Comparing Men and Women Across Race/Ethnic Groups
+ We produced this visualization initially to get an **idea of the increase of drug mortality over around 20 years**. This time period is especially relevant as the CDC declares that this time range represents the "[Opioid Epidemic](https://www.cdc.gov/museum/pdf/cdcm-pha-stem-uncovering-the-opioid-epidemic-lesson.pdf)"and many of the drugs identified in this data set are classified as some form of an opioid. This information is also helpful in highlighting the variation in mortality by race/sex pairings.
+ 
+
+***Plots Comparing Men and Women Across Race/Ethnic Groups***
 
 ```{r, echo = F}
 
@@ -312,7 +287,7 @@ grid.arrange(overall_plot_F, overall_plot_M)
 ```
 
 
-#### These data tell us a lot regarding the different observations witnessed. It is important to look at the distribution because it provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
+**Conclusion:** These data tell us a lot regarding the different observations witnessed. It is important to look at the distribution because it provide us with essential information about certain sex/race pairings, as well as the general trends of these groups over time. Such information is helpful as we perform more "narrow" visualizations and analysis. 
 
 ```{r, echo = T}
 
